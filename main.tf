@@ -104,7 +104,7 @@ resource "azurerm_function_app" "fn" {
   client_affinity_enabled = var.client_affinity_enabled
   os_type                 = var.os_type
   enabled                 = var.fn_enabled
-  https_only              = var.https_only
+  https_only              = true
   version                 = var.runtime_version
   dynamic "site_config" {
     for_each = merge(var.site_config, {})

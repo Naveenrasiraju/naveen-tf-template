@@ -35,7 +35,6 @@ variable "vnet_integration_required" {
 variable "environment" {
   description = "Environment"
   type        = string
-
 }
 
 
@@ -51,24 +50,24 @@ variable "app_prefix" {
 }
 variable "res_grp_name" {
   type        = string
-  description = "(optional) describe your variable"
+  description = "Resource Group name where the fn app needs to be created"
 }
 variable "existing_service_plan_enabled" {
   type        = bool
-  description = "(optional) describe your variable"
+  description = "Existing service plan enabled ?"
 }
 
 variable "create_application_insights_resource" {
   type        = bool
   default     = true
-  description = "(optional) describe your variable"
+  description = "Require application insights resource?"
 }
 
 
 variable "os_type" {
   type        = string
   default     = null
-  description = "(optional) describe your variable"
+  description = "OS Type for the fn app. Should match with App Service plan"
 }
 
 
@@ -76,57 +75,59 @@ variable "os_type" {
 variable "asp_kind" {
   type        = string
   default     = "Windows"
-  description = "(optional) describe your variable"
+  description = "App service plan kind. Should be able to accomodate the fn app"
 }
 variable "asp_reserved" {
   type        = bool
   default     = false
-  description = "(optional) describe your variable"
+  description = "Reserved field for App Service plan (Linux). Boolean"
 }
 variable "asp_sku_tier" {
   type        = string
   default     = "Premium"
-  description = "(optional) describe your variable"
+  description = "Tier of the app service plan"
 }
 
 variable "asp_sku_size" {
-  type    = string
-  default = "P1V2"
+  type        = string
+  default     = "P1V2"
+  description = "App service plan size"
 }
 
 variable "asp_sku_cap" {
   type        = string
   default     = null
-  description = "(optional) describe your variable"
+  description = "App Service plan capacity"
 }
 variable "asp_max_worker_cnt" {
   type        = number
   default     = 2
-  description = "(optional) describe your variable"
+  description = "App Service plan max worker count"
 }
 
 variable "fn_app_location" {
   type        = string
   default     = ""
-  description = "(optional) describe your variable"
+  description = "Function App location"
 }
 
 variable "existing_asp_name" {
   type        = string
   default     = ""
-  description = "(optional) describe your variable"
+  description = "Existing App Service plan name"
 }
 
 variable "existing_asp_res_grp_name" {
-  default = ""
-  type    = string
+  default     = ""
+  type        = string
+  description = "Existing App Service plan resource Group"
 }
 
 variable "auth_settings" {
   type = map(object({
     auth_enabled = string
   }))
-  description = "(optional) describe your variable"
+  description = "Authentication Settings "
   default     = {}
 }
 
@@ -136,8 +137,8 @@ variable "active_directory" {
     client_id     = string
     client_secret = string
   }))
-  default = {}
-
+  default     = {}
+  description = "active directory block "
 }
 
 variable "connection_strings" {
@@ -146,7 +147,8 @@ variable "connection_strings" {
     type  = string
     value = string
   }))
-  default = {}
+  default     = {}
+  description = "connection strings for fn app"
 }
 
 variable "identity" {
@@ -154,13 +156,14 @@ variable "identity" {
     identity_ids = string
     type         = string
   }))
-  default = {}
+  default     = {}
+  description = "identity for fn app"
 }
 
 variable "application_insights_type" {
   type        = string
   default     = "web"
-  description = "(optional) describe your variable"
+  description = "App insights type"
 }
 variable "site_config" {
   type = map(object({
@@ -171,7 +174,8 @@ variable "site_config" {
     use_32_bit_worker_process = bool
     websockets_enabled        = bool
   }))
-  default = {}
+  default     = {}
+  description = "Site config block for Fn app"
 }
 
 variable "site_config_ip_restrictions" {
@@ -179,7 +183,8 @@ variable "site_config_ip_restrictions" {
     ip_address                 = string
     virtual_network_subnet_ids = string
   }))
-  default = {}
+  default     = {}
+  description = "site config ip restrictions block parameters for fn app"
 }
 
 variable "site_config_cors" {
@@ -187,52 +192,51 @@ variable "site_config_cors" {
     allowed_origins     = list(string)
     support_credentials = string
   }))
-  default = {}
+  default     = {}
+  description = "Site config core parameters for Fn app"
 }
 
 
 
 variable "app_settings" {
-  type    = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
+  description = "App Settings. Package deploy configured"
 }
 
 variable "fn_required" {
   type        = bool
   default     = true
-  description = "(optional) describe your variable"
+  description = "Is Fn app required?"
 }
 
 variable "client_affinity_enabled" {
   type        = bool
   default     = null
-  description = "(optional) describe your variable"
+  description = "Should client affinity be enabled?"
 }
 
 variable "fn_enabled" {
   type        = bool
   default     = true
-  description = "(optional) describe your variable"
+  description = "Should fn app be enabled?"
 }
 
-variable "https_only" {
-  type        = bool
-  description = "(optional) describe your variable"
-}
 
 variable "runtime_version" {
   type        = string
   default     = "~3"
-  description = "(optional) describe your variable"
+  description = "Run time version of the Fn app"
 }
 
 
 variable "subnet_ids" {
-  type    = string
-  default = null
+  type        = string
+  default     = null
+  description = "Subnet IDS for VNet integration"
 }
 
 variable "sourcezip" {
   type        = string
-  description = "(optional) describe your variable"
+  description = "Zip file location to be used to do the deployment. Should be publicly accessible"
 }
