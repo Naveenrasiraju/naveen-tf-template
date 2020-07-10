@@ -164,8 +164,12 @@ variable "application_insights_type" {
 }
 variable "site_config" {
   type = map(object({
-    always_on        = bool
-    linux_fx_version = string
+    always_on                 = bool
+    linux_fx_version          = string
+    http2_enabled             = bool
+    ftps_state                = string
+    use_32_bit_worker_process = bool
+    websockets_enabled        = bool
   }))
   default = {}
 }

@@ -45,7 +45,7 @@ No requirements.
 | releaseVersion | releaseVersion | `string` | `"0.1.0"` | no |
 | res\_grp\_name | (optional) describe your variable | `string` | n/a | yes |
 | runtime\_version | (optional) describe your variable | `string` | `"~3"` | no |
-| site\_config | n/a | <pre>map(object({<br>    always_on        = bool<br>    linux_fx_version = string<br>  }))</pre> | `{}` | no |
+| site\_config | n/a | <pre>map(object({<br>    always_on        = bool<br>    linux_fx_version = string<br>    http2_enabled = bool<br>    ftps_state = string<br>    use_32_bit_worker_process = bool<br>    websockets_enabled = bool<br>  }))</pre> | `{}` | no |
 | site\_config\_cors | n/a | <pre>map(object({<br>    allowed_origins     = list(string)<br>    support_credentials = string<br>  }))</pre> | `{}` | no |
 | site\_config\_ip\_restrictions | n/a | <pre>map(object({<br>    ip_address                 = string<br>    virtual_network_subnet_ids = string<br>  }))</pre> | `{}` | no |
 | sourcezip | (optional) describe your variable | `string` | n/a | yes |

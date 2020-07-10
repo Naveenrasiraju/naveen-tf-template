@@ -1,5 +1,5 @@
 module "tag" {
-  source         = "git::https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging?ref=v0.1.0"
+  source         = "git::https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging?ref=v0.2.0"
   projectStream  = var.projectStream
   environment    = var.environment
   owner          = var.owner
@@ -45,26 +45,8 @@ resource "azurerm_storage_account" "storage" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
   network_rules {
-    default_action = "Deny"
-    ip_rules = [
-      "164.136.246.0/23",
-      "134.146.0.0/26",
-      "134.146.88.0/27",
-      "145.30.124.128",
-      "144.199.176.10",
-      "134.146.240.2",
-      "134.163.253.248",
-      "165.225.80.0/22",
-      "165.225.76.0/23",
-      "185.46.212.0/23",
-      "165.225.104.0/24",
-      "165.225.122.0/23",
-      "165.225.106.0/23",
-      "165.225.116.0/23",
-      "165.225.112.0/23",
-      "175.45.116.0/24",
-      "165.225.114.0/23"
-    ]
+    default_action             = "Deny"
+    ip_rules                   = module.tag.ip_whitelist
     virtual_network_subnet_ids = [var.subnet_ids]
     bypass                     = ["Logging", "Metrics", "AzureServices"]
   }
@@ -89,11 +71,10 @@ resource "random_integer" "suffix" {
 }
 
 resource "azurerm_function_app" "fn" {
-  count               = var.fn_required == true ? 1 : 0
-  name                = "${var.app_prefix}-fn-${random_integer.suffix.result}"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  location            = local.location
-  //app_service_plan_id     = merge(azurerm_app_service_plan.asp[0], data.azurerm_app_service_plan.asp[0]).id
+  count                      = var.fn_required == true ? 1 : 0
+  name                       = "${var.app_prefix}-fn-${random_integer.suffix.result}"
+  resource_group_name        = data.azurerm_resource_group.rg.name
+  location                   = local.location
   app_service_plan_id        = var.existing_service_plan_enabled == true ? data.azurerm_app_service_plan.asp[0].id : azurerm_app_service_plan.asp[0].id
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
@@ -109,12 +90,12 @@ resource "azurerm_function_app" "fn" {
   dynamic auth_settings {
     for_each = var.auth_settings
     content {
-      enabled = each.auth_enabled
+      enabled = auth_settings.auth_enabled
       dynamic active_directory {
         for_each = var.active_directory
         content {
-          client_id     = each.client_id
-          client_secret = each.client_secret
+          client_id     = active_directory.client_id
+          client_secret = active_directory.client_secret
         }
       }
     }
