@@ -223,9 +223,9 @@ variable "fn_enabled" {
 }
 
 
-variable "runtime_version" {
-  type        = string
-  default     = "~3"
+variable "fnapp_version" {
+  type = string
+  //default     = "~3"
   description = "Run time version of the Fn app"
 }
 
@@ -238,5 +238,6 @@ variable "subnet_ids" {
 
 variable "sourcezip" {
   type        = string
+  default     = ""
   description = "Zip file location to be used to do the deployment. Should be publicly accessible"
 }

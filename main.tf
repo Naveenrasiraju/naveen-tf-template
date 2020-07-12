@@ -78,7 +78,8 @@ resource "azurerm_function_app" "fn" {
   app_service_plan_id        = var.existing_service_plan_enabled == true ? data.azurerm_app_service_plan.asp[0].id : azurerm_app_service_plan.asp[0].id
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
-  app_settings               = merge(var.app_settings, { WEBSITE_RUN_FROM_PACKAGE = var.sourcezip }, local.app_insights)
+  //app_settings               = merge(var.app_settings, { WEBSITE_RUN_FROM_PACKAGE = var.sourcezip }, local.app_insights)
+  app_settings = merge(var.app_settings, local.website_run_from_package, local.app_insights)
   dynamic "connection_string" {
     for_each = merge(var.connection_strings, {})
     content {
@@ -105,7 +106,7 @@ resource "azurerm_function_app" "fn" {
   os_type                 = var.os_type
   enabled                 = var.fn_enabled
   https_only              = true
-  version                 = var.runtime_version
+  version                 = var.fnapp_version
   dynamic "site_config" {
     for_each = merge(var.site_config, {})
     content {

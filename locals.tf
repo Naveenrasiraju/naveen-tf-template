@@ -7,5 +7,5 @@ locals {
     APPLICATIONINSIGHTS_CONNECTION_STRING      = "InstrumentationKey=${azurerm_application_insights.app_insights[0].instrumentation_key}",
     ApplicationInsightsAgent_EXTENSION_VERSION = "~2"
   } : {}
-
+  website_run_from_package = var.sourcezip == "" ? {} : { WEBSITE_RUN_FROM_PACKAGE = var.sourcezip }
 }
