@@ -52,9 +52,11 @@ variable "res_grp_name" {
   type        = string
   description = "Resource Group name where the fn app needs to be created"
 }
+
 variable "existing_service_plan_enabled" {
   type        = bool
-  description = "Existing service plan enabled ?"
+  default     = false
+  description = "Existing service plan enabled?"
 }
 
 variable "create_application_insights_resource" {
