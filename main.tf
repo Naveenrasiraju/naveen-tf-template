@@ -47,7 +47,7 @@ resource "azurerm_storage_account" "storage" {
   network_rules {
     default_action             = "Deny"
     ip_rules                   = module.tag.ip_whitelist
-    virtual_network_subnet_ids = [var.subnet_ids]
+    virtual_network_subnet_ids = [var.integration_subnet_id]
     bypass                     = ["Logging", "Metrics", "AzureServices"]
   }
   tags = local.tags
@@ -112,13 +112,12 @@ resource "azurerm_function_app" "fn" {
     content {
       always_on = lookup(site_config.value, "always_on", null)
       dynamic "ip_restriction" {
-        for_each = merge(var.site_config_ip_restrictions, {})
+        for_each = concat(var.site_config_ip_restrictions, [])
         content {
           ip_address = lookup(ip_restriction.value, "ip_address", null)
-          subnet_id  = var.subnet_ids
+          subnet_id  = lookup(ip_restriction.value, "virtual_network_subnet_ids", null)
         }
       }
-
       dynamic "cors" {
         for_each = merge(var.site_config_cors, {})
         content {
@@ -151,5 +150,5 @@ resource "azurerm_function_app" "fn" {
 resource "azurerm_app_service_virtual_network_swift_connection" "vnet_integration" {
   count          = var.vnet_integration_required == true ? 1 : 0
   app_service_id = azurerm_function_app.fn[0].id
-  subnet_id      = var.subnet_ids
+  subnet_id      = var.integration_subnet_id
 }

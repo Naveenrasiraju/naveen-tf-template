@@ -18,7 +18,7 @@ variable "region" {
 
 variable "releaseVersion" {
   description = "releaseVersion"
-  default     = "0.1.0"
+  default     = "100"
 }
 
 
@@ -95,7 +95,7 @@ variable "asp_sku_size" {
 }
 
 variable "asp_sku_cap" {
-  type        = string
+  type        = number
   default     = null
   description = "App Service plan capacity"
 }
@@ -125,7 +125,7 @@ variable "existing_asp_res_grp_name" {
 
 variable "auth_settings" {
   type = map(object({
-    auth_enabled = string
+    auth_enabled = bool
   }))
   description = "Authentication Settings "
   default     = {}
@@ -179,14 +179,21 @@ variable "site_config" {
 }
 
 variable "site_config_ip_restrictions" {
-  type = map(object({
+  type = list(object({
     ip_address                 = string
     virtual_network_subnet_ids = string
   }))
-  default     = {}
+  default     = []
   description = "site config ip restrictions block parameters for fn app"
 }
+/*
 
+variable "site_config_ip_restrictions" {
+  type =  any
+  default     = []
+  description = "site config ip restrictions block parameters for fn app"
+}
+*/
 variable "site_config_cors" {
   type = map(object({
     allowed_origins     = list(string)
@@ -195,8 +202,6 @@ variable "site_config_cors" {
   default     = {}
   description = "Site config core parameters for Fn app"
 }
-
-
 
 variable "app_settings" {
   type        = map(string)
@@ -224,13 +229,13 @@ variable "fn_enabled" {
 
 
 variable "fnapp_version" {
-  type = string
-  //default     = "~3"
+  type        = string
+  default     = "~3"
   description = "Run time version of the Fn app"
 }
 
 
-variable "subnet_ids" {
+variable "integration_subnet_id" {
   type        = string
   default     = null
   description = "Subnet IDS for VNet integration"
