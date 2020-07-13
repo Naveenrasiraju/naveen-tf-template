@@ -81,7 +81,7 @@ resource "azurerm_function_app" "fn" {
   //app_settings               = merge(var.app_settings, { WEBSITE_RUN_FROM_PACKAGE = var.sourcezip }, local.app_insights)
   app_settings = merge(var.app_settings, local.website_run_from_package, local.app_insights)
   dynamic "connection_string" {
-    for_each = merge(var.connection_strings, {})
+    for_each = concat(var.connection_strings, [])
     content {
       name  = lookup(connection_string.value, "name", null)
       type  = lookup(connection_string.value, "type", null)

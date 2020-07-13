@@ -133,8 +133,17 @@ variable "auth_settings" {
   default     = {}
 }
 
-variable "active_directory" {
 
+variable "active_directory" {
+  type        = any
+  default     = {}
+  description = "A map object for Active Directory. please refer https://www.terraform.io/docs/providers/azurerm/r/function_app.html"
+}
+
+/*
+
+
+variable "active_directory" {
   type = map(object({
     client_id     = string
     client_secret = string
@@ -143,16 +152,24 @@ variable "active_directory" {
   description = "active directory block "
 }
 
+*/
+
 variable "connection_strings" {
-  type = map(object({
+  type = list(object({
     name  = string
     type  = string
     value = string
   }))
-  default     = {}
+  default     = []
   description = "connection strings for fn app"
 }
 
+variable "identity" {
+  type        = any
+  default     = {}
+  description = "identity for fn app. please refer https://www.terraform.io/docs/providers/azurerm/r/function_app.html"
+}
+/*
 variable "identity" {
   type = map(object({
     identity_ids = string
@@ -161,6 +178,7 @@ variable "identity" {
   default     = {}
   description = "identity for fn app"
 }
+*/
 
 variable "application_insights_type" {
   type        = string
@@ -179,7 +197,7 @@ variable "site_config" {
   default     = {}
   description = "Site config block for Fn app"
 }
-
+/*
 variable "site_config_ip_restrictions" {
   type = list(object({
     ip_address                 = string
@@ -188,14 +206,14 @@ variable "site_config_ip_restrictions" {
   default     = []
   description = "site config ip restrictions block parameters for fn app"
 }
-/*
+*/
 
 variable "site_config_ip_restrictions" {
-  type =  any
+  type        = any
   default     = []
   description = "site config ip restrictions block parameters for fn app"
 }
-*/
+
 variable "site_config_cors" {
   type = map(object({
     allowed_origins     = list(string)
