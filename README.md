@@ -13,7 +13,7 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| active\_directory | active directory block | <pre>map(object({<br>    client_id     = string<br>    client_secret = string<br>  }))</pre> | `{}` | no |
+| active\_directory | A map object for Active Directory. please refer https://www.terraform.io/docs/providers/azurerm/r/function_app.html | `any` | `{}` | no |
 | app\_prefix | App resourcess name prefix. | `string` | n/a | yes |
 | app\_settings | App Settings. Package deploy configured | `map(string)` | `{}` | no |
 | application\_insights\_type | App insights type | `string` | `"web"` | no |
@@ -25,7 +25,7 @@ No requirements.
 | asp\_sku\_tier | Tier of the app service plan | `string` | `"Premium"` | no |
 | auth\_settings | Authentication Settings | <pre>map(object({<br>    auth_enabled = bool<br>  }))</pre> | `{}` | no |
 | client\_affinity\_enabled | Should client affinity be enabled? | `bool` | `null` | no |
-| connection\_strings | connection strings for fn app | <pre>map(object({<br>    name  = string<br>    type  = string<br>    value = string<br>  }))</pre> | `{}` | no |
+| connection\_strings | connection strings for fn app | <pre>list(object({<br>    name  = string<br>    type  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 | create\_application\_insights\_resource | Require application insights resource? | `bool` | `true` | no |
 | environment | Environment | `string` | n/a | yes |
 | existing\_asp\_name | Existing App Service plan name | `string` | `""` | no |
@@ -36,7 +36,7 @@ No requirements.
 | fn\_enabled | Should fn app be enabled? | `bool` | `true` | no |
 | fn\_required | Is Fn app required? | `bool` | `true` | no |
 | fnapp\_version | Run time version of the Fn app | `string` | `"~3"` | no |
-| identity | identity for fn app | <pre>map(object({<br>    identity_ids = string<br>    type         = string<br>  }))</pre> | `{}` | no |
+| identity | identity for fn app. please refer https://www.terraform.io/docs/providers/azurerm/r/function_app.html | `any` | `{}` | no |
 | integration\_subnet\_id | Subnet IDS for VNet integration | `string` | `null` | no |
 | os\_type | OS Type for the fn app. Should match with App Service plan | `string` | `null` | no |
 | owner | owner | `string` | n/a | yes |
@@ -47,7 +47,7 @@ No requirements.
 | res\_grp\_name | Resource Group name where the fn app needs to be created | `string` | n/a | yes |
 | site\_config | Site config block for Fn app | <pre>map(object({<br>    always_on                 = bool<br>    linux_fx_version          = string<br>    http2_enabled             = bool<br>    ftps_state                = string<br>    use_32_bit_worker_process = bool<br>    websockets_enabled        = bool<br>  }))</pre> | `{}` | no |
 | site\_config\_cors | Site config core parameters for Fn app | <pre>map(object({<br>    allowed_origins     = list(string)<br>    support_credentials = string<br>  }))</pre> | `{}` | no |
-| site\_config\_ip\_restrictions | site config ip restrictions block parameters for fn app | <pre>list(object({<br>    ip_address                 = string<br>    virtual_network_subnet_ids = string<br>  }))</pre> | `[]` | no |
+| site\_config\_ip\_restrictions | site config ip restrictions block parameters for fn app | `any` | `[]` | no |
 | sourcezip | Zip file location to be used to do the deployment. Should be publicly accessible | `string` | `""` | no |
 | vnet\_integration\_required | Vnet integration required for the function app? | `bool` | `true` | no |
 
