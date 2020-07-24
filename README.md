@@ -7,22 +7,14 @@ No requirements.
 | Name | Version |
 |------|---------|
 | azurerm | n/a |
-| random | n/a |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | active\_directory | A map object for Active Directory. please refer https://www.terraform.io/docs/providers/azurerm/r/function_app.html | `any` | `{}` | no |
-| app\_prefix | App resourcess name prefix. | `string` | n/a | yes |
 | app\_settings | App Settings. Package deploy configured | `map(string)` | `{}` | no |
 | application\_insights\_type | App insights type | `string` | `"web"` | no |
-| asp\_kind | App service plan kind. Should be able to accomodate the fn app | `string` | `"Windows"` | no |
-| asp\_max\_worker\_cnt | App Service plan max worker count | `number` | `2` | no |
-| asp\_reserved | Reserved field for App Service plan (Linux). Boolean | `bool` | `false` | no |
-| asp\_sku\_cap | App Service plan capacity | `number` | `null` | no |
-| asp\_sku\_size | App service plan size | `string` | `"P1V2"` | no |
-| asp\_sku\_tier | Tier of the app service plan | `string` | `"Premium"` | no |
 | auth\_settings | Authentication Settings | <pre>map(object({<br>    auth_enabled = bool<br>  }))</pre> | `{}` | no |
 | client\_affinity\_enabled | Should client affinity be enabled? | `bool` | `null` | no |
 | connection\_strings | connection strings for fn app | <pre>list(object({<br>    name  = string<br>    type  = string<br>    value = string<br>  }))</pre> | `[]` | no |
@@ -30,9 +22,8 @@ No requirements.
 | environment | Environment | `string` | n/a | yes |
 | existing\_asp\_name | Existing App Service plan name | `string` | `""` | no |
 | existing\_asp\_res\_grp\_name | Existing App Service plan resource Group | `string` | `""` | no |
-| existing\_service\_plan\_enabled | Existing service plan enabled? | `bool` | `false` | no |
+| fnAppName | Name of the Fn App. Has to be unique worldwide | `string` | n/a | yes |
 | fn\_app\_additional\_tags | Additional tags for the App Service resources, in addition to the resource group tags. | `map(string)` | `{}` | no |
-| fn\_app\_location | Function App location | `string` | `""` | no |
 | fn\_enabled | Should fn app be enabled? | `bool` | `true` | no |
 | fn\_required | Is Fn app required? | `bool` | `true` | no |
 | fnapp\_version | Run time version of the Fn app | `string` | `"~3"` | no |
@@ -55,5 +46,4 @@ No requirements.
 
 | Name | Description |
 |------|-------------|
-| app\_service\_plans | Map output of the App Service Plans |
 | fn\_app | Map output of the Fnapp Services |
