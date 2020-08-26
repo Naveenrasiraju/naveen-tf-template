@@ -5,15 +5,24 @@ variable "placement" {
 }
 
 
-variable "projectStream" {
+variable "project" {
   description = "project stream name"
   type        = string
-  default     = "F4DP"
+  default     = "Stratos"
+}
+variable "projectStream" {
+  description = " 4 character project stream name/code "
+  type        = string
+}
+
+variable "workStream" {
+  description = " 4 character project stream name/code "
+  type        = string
 }
 
 variable "region" {
   type        = string
-  description = "region"
+  description = "region. Choose from australia, europe, asia, europe"
 }
 
 variable "releaseVersion" {
@@ -27,14 +36,9 @@ variable "owner" {
   type        = string
 }
 
-variable "vnet_integration_required" {
-  type        = bool
-  default     = true
-  description = "Vnet integration required for the function app?"
-}
 
 variable "environment" {
-  description = "Environment"
+  description = "Environment. Upto 5 character. For e.g. dev, dev01 , prd01"
   type        = string
 }
 
@@ -46,22 +50,14 @@ variable "fn_app_additional_tags" {
 }
 
 
-variable "fnAppName" {
-  description = "Name of the Fn App. Has to be unique worldwide"
-  type        = string
-}
-variable "res_grp_name" {
+
+variable "resource_group_name" {
   type        = string
   description = "Resource Group name where the fn app needs to be created"
 }
 
 
 
-variable "create_application_insights_resource" {
-  type        = bool
-  default     = true
-  description = "Require application insights resource?"
-}
 
 
 variable "os_type" {
@@ -79,7 +75,7 @@ variable "existing_asp_name" {
   description = "Existing App Service plan name"
 }
 
-variable "existing_asp_res_grp_name" {
+variable "existing_asp_resource_group_name" {
   default     = ""
   type        = string
   description = "Existing App Service plan resource Group"
@@ -112,11 +108,6 @@ variable "connection_strings" {
   description = "connection strings for fn app"
 }
 
-variable "identity" {
-  type        = any
-  default     = {}
-  description = "identity for fn app. please refer https://www.terraform.io/docs/providers/azurerm/r/function_app.html"
-}
 
 
 variable "application_insights_type" {
@@ -137,7 +128,10 @@ variable "site_config" {
   description = "Site config block for Fn app"
 }
 
-
+variable "nameSuffix" {
+  type        = string
+  description = "name suffix for the function app"
+}
 variable "site_config_ip_restrictions" {
   type        = any
   default     = []
@@ -147,7 +141,7 @@ variable "site_config_ip_restrictions" {
 variable "site_config_cors" {
   type = map(object({
     allowed_origins     = list(string)
-    support_credentials = string
+    support_credentials = bool
   }))
   default     = {}
   description = "Site config core parameters for Fn app"
@@ -159,26 +153,8 @@ variable "app_settings" {
   description = "App Settings. Package deploy configured"
 }
 
-variable "fn_required" {
-  type        = bool
-  default     = true
-  description = "Is Fn app required?"
-}
 
-variable "client_affinity_enabled" {
-  type        = bool
-  default     = null
-  description = "Should client affinity be enabled?"
-}
-
-variable "fn_enabled" {
-  type        = bool
-  default     = true
-  description = "Should fn app be enabled?"
-}
-
-
-variable "fnapp_version" {
+variable "runtime_version" {
   type        = string
   default     = "~3"
   description = "Run time version of the Fn app"
@@ -187,12 +163,6 @@ variable "fnapp_version" {
 
 variable "integration_subnet_id" {
   type        = string
-  default     = null
-  description = "Subnet IDS for VNet integration"
-}
-
-variable "sourcezip" {
-  type        = string
   default     = ""
-  description = "Zip file location to be used to do the deployment. Should be publicly accessible"
+  description = "Subnet IDS for VNet integration"
 }
