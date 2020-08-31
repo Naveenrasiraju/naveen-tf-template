@@ -12,7 +12,7 @@ module "tag" {
 
 
 data "azurerm_user_assigned_identity" "this" {
-  name                = "${substr(var.projectStream, 0, 4)}${substr(var.workStream, 0, 3)}${var.environment}def001"
+  name                = local.useridentity
   resource_group_name = upper(local.vnet_rg)
 }
 
