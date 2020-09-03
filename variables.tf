@@ -4,6 +4,11 @@ variable "placement" {
   type        = string
 }
 
+variable "instance" {
+  description = "Instance number"
+  default     = "001"
+  type        = string
+}
 
 variable "project" {
   description = "project stream name"
@@ -53,6 +58,7 @@ variable "fn_app_additional_tags" {
 
 variable "resource_group_name" {
   type        = string
+  default     = ""
   description = "Resource Group name where the fn app needs to be created"
 }
 
