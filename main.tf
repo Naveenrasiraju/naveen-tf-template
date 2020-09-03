@@ -1,5 +1,5 @@
 module "tag" {
-  source         = "git::https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging?ref=v0.3.0"
+  source         = "git::https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging?ref=v0.3.2"
   projectStream  = var.projectStream
   workStream     = var.workStream
   environment    = var.environment
@@ -17,12 +17,12 @@ data "azurerm_user_assigned_identity" "this" {
 }
 
 data "azurerm_resource_group" "rg" {
-  name = var.resource_group_name
+  name = var.resource_group_name == "" ? local.resource_group_name : var.resource_group_name
 }
 
 data "azurerm_app_service_plan" "asp" {
-  name                = var.existing_asp_name
-  resource_group_name = var.existing_asp_resource_group_name
+  name                = var.existing_asp_name == "" ? local.existing_asp_name : var.existing_asp_name
+  resource_group_name = var.existing_asp_resource_group_name == "" ? local.existing_asp_resource_group_name : var.existing_asp_resource_group_name
 }
 
 # Storage Account

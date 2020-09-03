@@ -16,34 +16,28 @@ No requirements.
 | app\_settings | App Settings. Package deploy configured | `map(string)` | `{}` | no |
 | application\_insights\_type | App insights type | `string` | `"web"` | no |
 | auth\_settings | Authentication Settings | <pre>map(object({<br>    auth_enabled = bool<br>  }))</pre> | `{}` | no |
-| client\_affinity\_enabled | Should client affinity be enabled? | `bool` | `null` | no |
 | connection\_strings | connection strings for fn app | <pre>list(object({<br>    name  = string<br>    type  = string<br>    value = string<br>  }))</pre> | `[]` | no |
-| create\_application\_insights\_resource | Require application insights resource? | `bool` | `true` | no |
-| environment | Environment | `string` | n/a | yes |
+| environment | Environment. Upto 5 character. For e.g. dev, dev01 , prd01 | `string` | n/a | yes |
 | existing\_asp\_name | Existing App Service plan name | `string` | `""` | no |
-| existing\_asp\_res\_grp\_name | Existing App Service plan resource Group | `string` | `""` | no |
-| fnAppName | Name of the Fn App. Has to be unique worldwide | `string` | n/a | yes |
+| existing\_asp\_resource\_group\_name | Existing App Service plan resource Group | `string` | `""` | no |
 | fn\_app\_additional\_tags | Additional tags for the App Service resources, in addition to the resource group tags. | `map(string)` | `{}` | no |
-| fn\_enabled | Should fn app be enabled? | `bool` | `true` | no |
-| fn\_required | Is Fn app required? | `bool` | `true` | no |
-| fnapp\_version | Run time version of the Fn app | `string` | `"~3"` | no |
-| identity | identity for fn app. please refer https://www.terraform.io/docs/providers/azurerm/r/function_app.html | `any` | `{}` | no |
-| integration\_subnet\_id | Subnet IDS for VNet integration | `string` | `null` | no |
+| instance | Instance number | `string` | `"001"` | no |
+| integration\_subnet\_id | Subnet IDS for VNet integration | `string` | `""` | no |
+| nameSuffix | name suffix for the function app | `string` | n/a | yes |
 | os\_type | OS Type for the fn app. Should match with App Service plan | `string` | `null` | no |
 | owner | owner | `string` | n/a | yes |
 | placement | placement | `string` | `"PUB"` | no |
-| projectStream | project stream name | `string` | `"F4DP"` | no |
-| region | region | `string` | n/a | yes |
+| project | project stream name | `string` | `"Stratos"` | no |
+| projectStream | 4 character project stream name/code | `string` | n/a | yes |
+| region | region. Choose from australia, europe, asia, europe | `string` | n/a | yes |
 | releaseVersion | releaseVersion | `string` | `"100"` | no |
-| res\_grp\_name | Resource Group name where the fn app needs to be created | `string` | n/a | yes |
+| resource\_group\_name | Resource Group name where the fn app needs to be created | `string` | `""` | no |
+| runtime\_version | Run time version of the Fn app | `string` | `"~3"` | no |
 | site\_config | Site config block for Fn app | <pre>map(object({<br>    always_on                 = bool<br>    linux_fx_version          = string<br>    http2_enabled             = bool<br>    ftps_state                = string<br>    use_32_bit_worker_process = bool<br>    websockets_enabled        = bool<br>  }))</pre> | `{}` | no |
-| site\_config\_cors | Site config core parameters for Fn app | <pre>map(object({<br>    allowed_origins     = list(string)<br>    support_credentials = string<br>  }))</pre> | `{}` | no |
+| site\_config\_cors | Site config core parameters for Fn app | <pre>map(object({<br>    allowed_origins     = list(string)<br>    support_credentials = bool<br>  }))</pre> | `{}` | no |
 | site\_config\_ip\_restrictions | site config ip restrictions block parameters for fn app | `any` | `[]` | no |
-| sourcezip | Zip file location to be used to do the deployment. Should be publicly accessible | `string` | `""` | no |
-| vnet\_integration\_required | Vnet integration required for the function app? | `bool` | `true` | no |
+| workStream | 4 character project stream name/code | `string` | n/a | yes |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| fn\_app | Map output of the Fnapp Services |
+No output.
