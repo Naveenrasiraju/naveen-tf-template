@@ -33,6 +33,7 @@ variable "region" {
 variable "releaseVersion" {
   description = "releaseVersion"
   default     = "100"
+  type        = string
 }
 
 

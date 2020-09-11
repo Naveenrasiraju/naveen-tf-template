@@ -5,6 +5,7 @@ locals {
     APPINSIGHTS_INSTRUMENTATIONKEY             = azurerm_application_insights.app_insights.instrumentation_key,
     APPLICATIONINSIGHTS_CONNECTION_STRING      = "InstrumentationKey=${azurerm_application_insights.app_insights.instrumentation_key}",
     ApplicationInsightsAgent_EXTENSION_VERSION = "~2"
+    AZURE_CLIENT_ID                            = data.azurerm_client_config.current.client_id
   }
   # website_run_from_package = var.sourcezip == "" ? {} : { WEBSITE_RUN_FROM_PACKAGE = var.sourcezip }
   wkstm                            = var.workStream == "" ? "" : "-${substr(var.workStream, 0, 3)}"
