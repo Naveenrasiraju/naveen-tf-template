@@ -125,7 +125,6 @@ variable "application_insights_type" {
 variable "site_config" {
   type = map(object({
     always_on                 = bool
-    linux_fx_version          = string
     http2_enabled             = bool
     ftps_state                = string
     use_32_bit_worker_process = bool
@@ -133,6 +132,11 @@ variable "site_config" {
   }))
   default     = {}
   description = "Site config block for Fn app"
+}
+variable "linux_fx_version" {
+  type        = string
+  default     = ""
+  description = "Linux Docker image to use"
 }
 
 variable "nameSuffix" {

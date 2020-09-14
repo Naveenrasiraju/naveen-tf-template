@@ -107,7 +107,7 @@ resource "azurerm_function_app" "fn" {
 
       ftps_state                = lookup(site_config.value, "ftps_state", null)
       http2_enabled             = lookup(site_config.value, "http2_enabled", null)
-      linux_fx_version          = lookup(site_config.value, "linux_fx_version", null)
+      linux_fx_version          = var.linux_fx_version == "" ? null : var.linux_fx_version
       min_tls_version           = lookup(site_config.value, "min_tls_version", null)
       use_32_bit_worker_process = lookup(site_config.value, "use_32_bit_worker_process", null)
       websockets_enabled        = lookup(site_config.value, "websockets_enabled", null)
