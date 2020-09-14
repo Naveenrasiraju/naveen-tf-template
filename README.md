@@ -23,6 +23,7 @@ No requirements.
 | fn\_app\_additional\_tags | Additional tags for the App Service resources, in addition to the resource group tags. | `map(string)` | `{}` | no |
 | instance | Instance number | `string` | `"001"` | no |
 | integration\_subnet\_id | Subnet IDS for VNet integration | `string` | `""` | no |
+| linux\_fx\_version | Linux Docker image to use | `string` | `""` | no |
 | nameSuffix | name suffix for the function app | `string` | n/a | yes |
 | os\_type | OS Type for the fn app. Should match with App Service plan | `string` | `null` | no |
 | owner | owner | `string` | n/a | yes |
@@ -33,7 +34,7 @@ No requirements.
 | releaseVersion | releaseVersion | `string` | `"100"` | no |
 | resource\_group\_name | Resource Group name where the fn app needs to be created | `string` | `""` | no |
 | runtime\_version | Run time version of the Fn app | `string` | `"~3"` | no |
-| site\_config | Site config block for Fn app | <pre>map(object({<br>    always_on                 = bool<br>    linux_fx_version          = string<br>    http2_enabled             = bool<br>    ftps_state                = string<br>    use_32_bit_worker_process = bool<br>    websockets_enabled        = bool<br>  }))</pre> | `{}` | no |
+| site\_config | Site config block for Fn app | <pre>map(object({<br>    always_on                 = bool<br>    http2_enabled             = bool<br>    ftps_state                = string<br>    use_32_bit_worker_process = bool<br>    websockets_enabled        = bool<br>  }))</pre> | `{}` | no |
 | site\_config\_cors | Site config core parameters for Fn app | <pre>map(object({<br>    allowed_origins     = list(string)<br>    support_credentials = bool<br>  }))</pre> | `{}` | no |
 | site\_config\_ip\_restrictions | site config ip restrictions block parameters for fn app | `any` | `[]` | no |
 | workStream | 4 character project stream name/code | `string` | n/a | yes |
