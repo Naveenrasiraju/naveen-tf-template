@@ -32,7 +32,7 @@ resource "azurerm_storage_account" "storage" {
   location                 = module.tag.location_primary
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  tags                     = merge(local.tags, { functionapp = local.name })
+  tags                     = merge(local.tags, { functionapp = lower(local.name) })
   network_rules {
     default_action             = "Deny"
     virtual_network_subnet_ids = [var.integration_subnet_id == "" ? local.integration_subnet_id : var.integration_subnet_id]

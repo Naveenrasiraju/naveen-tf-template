@@ -1,5 +1,6 @@
 locals {
-  tags         = merge(var.fn_app_additional_tags, data.azurerm_resource_group.rg.tags, module.tag.tags_without_location)
+  tags         = merge(var.fn_app_additional_tags, module.tag.tags_without_location, { dateCreated = local.dateCreated })
+  dateCreated  = formatdate("DD-MMM-YYYY hh:mm:ss ZZZ", timestamp())
   storage_name = "${substr(var.projectStream, 0, 4)}${substr(var.workStream, 0, 3)}sg2${var.environment}${random_string.randstring.result}"
   #storage_name = "${substr(var.projectStream, 0, 4)}${substr(var.workStream, 0, 3)}sg2${var.environment}${substr(var.nameSuffix, -6, 0)}"
   app_insights = {
