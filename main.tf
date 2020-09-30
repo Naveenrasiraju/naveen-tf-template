@@ -41,18 +41,22 @@ resource "azurerm_storage_account" "storage" {
 
 # Application Insights
 resource "azurerm_application_insights" "app_insights" {
-  name                = "${var.projectStream}${var.workStream}-${var.environment}-ai${var.nameSuffix}"
+  name                = lower(local.ainame)
   location            = module.tag.location_primary
   resource_group_name = data.azurerm_resource_group.rg.name
   application_type    = var.application_insights_type
   tags                = merge(local.tags, { functionapp = local.name })
 }
 
+resource "random_string" "randstring" {
+  length  = 6
+  upper   = false
+  special = false
 
-
+}
 
 resource "azurerm_function_app" "fn" {
-  name                       = local.name
+  name                       = lower(local.name)
   resource_group_name        = data.azurerm_resource_group.rg.name
   location                   = module.tag.location_primary
   app_service_plan_id        = data.azurerm_app_service_plan.asp.id
