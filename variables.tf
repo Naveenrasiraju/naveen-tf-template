@@ -177,3 +177,8 @@ variable "integration_subnet_id" {
   default     = ""
   description = "Subnet IDS for VNet integration"
 }
+
+variable "host" {
+  type        = string
+  description = "Hostname without the stratos.shell/stratos.shell.com suffix"
+}

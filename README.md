@@ -7,6 +7,8 @@ No requirements.
 | Name | Version |
 |------|---------|
 | azurerm | n/a |
+| kubernetes | n/a |
+| random | n/a |
 
 ## Inputs
 
@@ -21,6 +23,7 @@ No requirements.
 | existing\_asp\_name | Existing App Service plan name | `string` | `""` | no |
 | existing\_asp\_resource\_group\_name | Existing App Service plan resource Group | `string` | `""` | no |
 | fn\_app\_additional\_tags | Additional tags for the App Service resources, in addition to the resource group tags. | `map(string)` | `{}` | no |
+| host | Hostname without the stratos.shell/stratos.shell.com suffix | `string` | n/a | yes |
 | instance | Instance number | `string` | `"001"` | no |
 | integration\_subnet\_id | Subnet IDS for VNet integration | `string` | `""` | no |
 | linux\_fx\_version | Linux Docker image to use | `string` | `""` | no |
