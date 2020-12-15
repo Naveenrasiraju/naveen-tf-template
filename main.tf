@@ -1,6 +1,5 @@
 module "tag" {
-  source = "../sedp-tf-az-tagging"
-  #source         = "git::https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging?ref=v0.3.2"
+  source         = "git::https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging?ref=v0.3.2"
   projectStream  = var.projectStream
   workStream     = var.workStream
   environment    = var.environment
