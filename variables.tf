@@ -181,5 +181,5 @@ variable "integration_subnet_id" {
 variable "host" {
   type        = string
   default     = ""
-  description = "Hostname without the stratos.shell/stratos.shell.com suffix"
+  description = "Hostname with the stratos.shell/stratos.shell.com suffix"
 }
