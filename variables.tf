@@ -11,7 +11,7 @@ variable "instance" {
 }
 
 variable "project" {
-  description = "project stream name"
+  description = "project name"
   type        = string
   default     = "Stratos"
 }
@@ -21,7 +21,7 @@ variable "projectStream" {
 }
 
 variable "workStream" {
-  description = " 4 character project stream name/code "
+  description = " 3 character workstream name/code "
   type        = string
 }
 
