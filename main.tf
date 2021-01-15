@@ -33,10 +33,6 @@ resource "azurerm_storage_account" "storage" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
   tags                     = merge(local.tags, { functionapp = lower(local.name) })
-  network_rules {
-    default_action             = "Deny"
-    virtual_network_subnet_ids = [var.integration_subnet_id == "" ? local.integration_subnet_id : var.integration_subnet_id]
-  }
 }
 
 # Application Insights
@@ -62,8 +58,7 @@ resource "azurerm_function_app" "fn" {
   app_service_plan_id        = data.azurerm_app_service_plan.asp.id
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
-  #  app_settings               = merge(var.app_settings, local.website_run_from_package, local.app_insights)
-  app_settings = merge(var.app_settings, local.app_insights)
+  app_settings               = merge(var.app_settings, local.app_insights)
   dynamic "connection_string" {
     for_each = concat(var.connection_strings, [])
     content {
@@ -72,20 +67,6 @@ resource "azurerm_function_app" "fn" {
       value = lookup(connection_string.value, "value", null)
     }
   }
-  //  dynamic "auth_settings" {
-  //    for_each = var.auth_settings
-  //    content {
-  //      enabled = auth_settings.auth_enabled
-  //      dynamic active_directory {
-  //        for_each = var.active_directory
-  //        content {
-  //          client_id     = active_directory.client_id
-  //          client_secret = active_directory.client_secret
-  //        }
-  //      }
-  //    }
-  //  }
-
   os_type    = var.os_type
   enabled    = true
   https_only = true
@@ -97,8 +78,8 @@ resource "azurerm_function_app" "fn" {
       dynamic "ip_restriction" {
         for_each = concat(var.site_config_ip_restrictions, [])
         content {
-          ip_address = lookup(ip_restriction.value, "ip_address", null)
-          subnet_id  = lookup(ip_restriction.value, "virtual_network_subnet_ids", null)
+          ip_address                = lookup(ip_restriction.value, "ip_address", null)
+          virtual_network_subnet_id = lookup(ip_restriction.value, "virtual_network_subnet_id", null)
         }
       }
       dynamic "cors" {

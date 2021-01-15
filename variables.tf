@@ -11,7 +11,7 @@ variable "instance" {
 }
 
 variable "project" {
-  description = "project stream name"
+  description = "project name"
   type        = string
   default     = "Stratos"
 }
@@ -21,7 +21,7 @@ variable "projectStream" {
 }
 
 variable "workStream" {
-  description = " 4 character project stream name/code "
+  description = " 3 character workstream name/code "
   type        = string
 }
 
@@ -176,4 +176,10 @@ variable "integration_subnet_id" {
   type        = string
   default     = ""
   description = "Subnet IDS for VNet integration"
+}
+
+variable "host" {
+  type        = string
+  default     = ""
+  description = "Hostname with the stratos.shell/stratos.shell.com suffix"
 }
