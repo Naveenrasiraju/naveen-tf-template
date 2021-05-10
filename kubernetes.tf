@@ -33,10 +33,10 @@ resource "kubernetes_ingress" "fn_ingress" {
       "nginx.ingress.kubernetes.io/auth-signin"           = "https://vouch.stratos.shell/login?url=$scheme://$http_host$request_uri&vouch-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_error"
       "nginx.ingress.kubernetes.io/auth-snippet"          = <<EOF
        #these return values are used by the
-       @error401 call\n
-       auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;\n
-       auth_request_set $auth_resp_err $upstream_http_x_vouch_err;\n
-       auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;\n
+       @error401 call
+       auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
+       auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
+       auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
        EOF
       "nginx.ingress.kubernetes.io/auth-url"              = "https://vouch.stratos.shell/validate"
       "nginx.ingress.kubernetes.io/force-ssl-redirect"    = "true"
