@@ -34,7 +34,7 @@ resource "kubernetes_ingress" "fn_ingress" {
       "nginx.ingress.kubernetes.io/auth-snippet"          = <<EOF
        #these return values are used by the @error401 call\n
        auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;\n
-       auth_request_set $auth_resp_err $upstream_http_x_vouch_err;\n
+       auth_request_set $upstream_http_x_vouch_err;\n
        auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;    \n
        EOF
       "nginx.ingress.kubernetes.io/auth-url"              = "https://vouch.stratos.shell/validate"
