@@ -35,7 +35,7 @@ resource "kubernetes_ingress" "fn_ingress" {
        EOF
       "nginx.ingress.kubernetes.io/auth-url"              = "https://vouch.stratos.shell/validate"
       "nginx.ingress.kubernetes.io/force-ssl-redirect"    = "true"
-      "nginx.ingress.kubernetes.io/proxy-buffer-size"     = "512k"
+      "nginx.ingress.kubernetes.io/proxy-buffer-size"     = "128k"
       "nginx.ingress.kubernetes.io/proxy-buffers-number"  = "8"
       "nginx.ingress.kubernetes.io/rewrite-target"        = "/"
       "nginx.ingress.kubernetes.io/ssl-redirect"          = "false"
