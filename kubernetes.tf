@@ -29,10 +29,7 @@ resource "kubernetes_ingress" "fn_ingress" {
       "nginx.ingress.kubernetes.io/upstream-vhost"        = azurerm_function_app.fn.default_hostname
       "nginx.ingress.kubernetes.io/auth-response-headers" = "X-Vouch-User, X-Vouch-AccessToken, X-Vouch-IdP-AccessToken, X-Vouch-IdP-Claims-Name, X-Vouch-IdP-Claims-Group"
       "nginx.ingress.kubernetes.io/auth-signin"           = "https://vouch.stratos.shell/login?url=$scheme://$http_host$request_uri&vouch-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
-      "nginx.ingress.kubernetes.io/auth-snippet"          = <<EOF
-         "# these return values are used by the
-         @error401 call \nauth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;\nauth_request_set $auth_resp_err $upstream_http_x_vouch_err;\nauth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount; \n"
-       EOF
+      "nginx.ingress.kubernetes.io/auth-snippet"          = "#these return values are used by the @error401 call \nauth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;\nauth_request_set $auth_resp_err $upstream_http_x_vouch_err;\nauth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount; \n"
       "nginx.ingress.kubernetes.io/auth-url"              = "https://vouch.stratos.shell/validate"
       "nginx.ingress.kubernetes.io/force-ssl-redirect"    = "true"
       "nginx.ingress.kubernetes.io/proxy-buffer-size"     = "128k"
