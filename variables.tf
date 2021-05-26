@@ -68,9 +68,15 @@ variable "resource_group_name" {
 
 
 variable "os_type" {
-  type        = string
-  default     = null
+  
+ 
   description = "OS Type for the fn app. Should match with App Service plan"
+
+    type    = "list"
+  default = [
+    "Windows",
+    "Linux"
+  ]
 }
 
 
