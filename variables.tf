@@ -72,7 +72,7 @@ variable "os_type" {
  
   description = "OS Type for the fn app. Should match with App Service plan"
 
-   type = "list"
+   type        = string
   default     = ""
 }
 
