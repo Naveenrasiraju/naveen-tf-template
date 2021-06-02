@@ -17,7 +17,7 @@ steps:
 
   - task: a4789e5d-f6e8-431f-add9-379d640a883c@0
     inputs:
-      terraformVersion: "0.14.8"
+      terraformVersion: "0.12.26"
 
   - script: |
       cp .provider/* .
