@@ -116,3 +116,40 @@ resource "azurerm_app_service_virtual_network_swift_connection" "vnet_integratio
   app_service_id = azurerm_function_app.fn.id
   subnet_id      = var.integration_subnet_id == "" ? local.integration_subnet_id : var.integration_subnet_id
 }
+
+
+resource "azurerm_monitor_action_group" "main" {
+  name                = "example-actiongroup"
+  resource_group_name = data.azurerm_function_app.rg.name
+  short_name          = "p0action"
+
+  email_receiver {
+    name          = "sendtodevops"
+    email_address = "xyz@devops.com"
+  }
+}
+
+resource "azurerm_monitor_metric_alert" "azuredb_Metrics_Rule" {
+  name                = "Azure SQL Datbase Metrics Alert"
+  resource_group_name =  data.azurerm_function_app.rg.name
+  scopes              = [azurerm_function_app.rg.id]
+  description         = "Action will be triggered when CPU is too close to limit."
+
+
+  dynamic "criteria" {
+    for_each = var.alert_metrics
+    content {
+      metric_namespace =  "Microsoft.Web/sites"
+      metric_name      =  criteria.value.metric_name
+      aggregation      =  criteria.value.aggregation
+      operator         =  criteria.value.operator
+      threshold        =  criteria.value.threshold
+    }
+  }
+
+  action {
+    action_group_id = azurerm_monitor_action_group.main.id
+  }
+}
+
+
