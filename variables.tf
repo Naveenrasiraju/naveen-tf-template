@@ -179,3 +179,19 @@ variable "host" {
   default     = ""
   description = "Hostname with the stratos.shell/stratos.shell.com suffix"
 }
+
+
+
+variable "alert_metrics" {
+  type = list(object({
+    metric_namespace  = string
+    metric_name       = string
+    aggregation       = string
+    operator          = string
+    threshold         = number
+  }))
+}
+
+variable "alert_logs" {
+  type = list(map(string))
+}
