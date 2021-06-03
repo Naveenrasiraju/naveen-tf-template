@@ -67,7 +67,7 @@ resource "azurerm_function_app" "fn" {
       value = lookup(connection_string.value, "value", null)
     }
   }
-  os_type    = "windows" ? null : "linux"
+  os_type    = var.os_type == "windows" ? null : "linux"
                 
   enabled    = true
   https_only = true
