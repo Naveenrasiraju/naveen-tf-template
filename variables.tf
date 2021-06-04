@@ -182,7 +182,7 @@ variable "host" {
 
 
 
-variable "alert_metrics" {
+variable "alertMetrics" {
   type = list(object({
     metric_namespace  = string
     metric_name       = string
@@ -192,6 +192,18 @@ variable "alert_metrics" {
   }))
 }
 
-variable "alert_logs" {
-  type = list(map(string))
+variable "name" {
+  description = "name of alert reciever"
+  type        = string
+  default     = ""
 }
+
+variable "email_address" {
+  description = "email_address of alert reciever"
+  type        = string
+  default     = ""
+}
+
+#variable "alert_logs" {
+#  type = list(map(string))
+#}
