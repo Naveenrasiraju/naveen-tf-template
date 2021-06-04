@@ -1,10 +1,5 @@
 alert_metrics = [
-    {
-        metric_name       = "CpuTime"
-        aggregation       = "Maximum"
-        operator          = "GreaterThan"
-        threshold         = 50
-    },
+  
     {
         metric_name       = "Http2xx"
         aggregation       = "Maximum"
