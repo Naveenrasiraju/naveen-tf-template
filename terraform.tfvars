@@ -1,5 +1,5 @@
 alert_metrics = [
-      {
+    {
         metric_name       = "Http2xx"
         aggregation       = "Maximum"
         operator          = "GreaterThan"
