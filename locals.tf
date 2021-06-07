@@ -14,6 +14,8 @@ locals {
   subnet                           = "${upper(substr(var.projectStream, 0, 4))}${upper(local.wkstm)}-${upper(substr(var.placement, 0, 3))}-${upper(var.environment)}-${upper(lookup(module.tag.region_short, module.tag.location_primary))}-APPSVC-001"
   useridentity                     = "${upper(substr(var.projectStream, 0, 4))}${upper(substr(var.workStream, 0, 3))}${upper(var.environment)}DEF001"
   name                             = "${substr(var.projectStream, 0, 4)}${lower(local.wkstm)}-${var.placement}-${var.environment}-${module.tag.location_short}-${var.releaseVersion}-appf-${var.nameSuffix}"
+  ag_name                          = "${substr(var.projectStream, 0, 4)}${lower(local.wkstm)}-${var.placement}-${var.environment}-${module.tag.location_short}-${var.releaseVersion}-ag-${var.nameSuffix}"
+  al_name                          = "${substr(var.projectStream, 0, 4)}${lower(local.wkstm)}-${var.placement}-${var.environment}-${module.tag.location_short}-${var.releaseVersion}-al-${var.nameSuffix}"
   integration_subnet_id            = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${local.vnet_rg}/providers/Microsoft.Network/virtualNetworks/${local.vnet}/subnets/${local.subnet}"
   identity_ids                     = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${local.vnet_rg}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/${local.useridentity}"
   ostype                           = lower(var.os_type) == "linux" ? "LNX" : "WIN"
