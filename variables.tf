@@ -233,7 +233,7 @@ variable "email_address" {
 variable "short_name" {
   description = "email_address of alert reciever"
   type        = string
-  default     = "p0action"
+  default     = "p1action"
 }
 
 #variable "alert_logs" {
