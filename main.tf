@@ -121,7 +121,7 @@ resource "azurerm_app_service_virtual_network_swift_connection" "vnet_integratio
 
 resource "azurerm_monitor_action_group" "main" {
   name                = lower(local.ag_name)
-  resource_group_name = local.sql_resource_group_name
+  resource_group_name = data.azurerm_resource_group.rg.name
   short_name          = var.short_name
 
   email_receiver {
@@ -132,19 +132,16 @@ resource "azurerm_monitor_action_group" "main" {
 
 resource "azurerm_monitor_metric_alert" "alertMetricsRule" {
   name                = lower(local.al_name)
-  resource_group_name = local.sql_resource_group_name
-  scopes              = [azurerm_sql_database.paas_db.id]
+  resource_group_name = data.azurerm_resource_group.rg.name
+  scopes              = [azurerm_function_app.fn.id]
 
 
   criteria {
-  
-   
       metric_namespace =  var.metric_namespace
       metric_name      =  var.metric_name
       aggregation      =  var.aggregation
       operator         =  var.operator
       threshold        =  var.threshold
-    
   }
 
   action {
