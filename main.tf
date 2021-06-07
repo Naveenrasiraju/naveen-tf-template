@@ -119,9 +119,9 @@ resource "azurerm_app_service_virtual_network_swift_connection" "vnet_integratio
 
 
 resource "azurerm_monitor_action_group" "main" {
-  name                = lower(local.name)
-  resource_group_name = data.azurerm_resource_group.rg.name
-  short_name          = lower(local.name)
+  name                = lower(local.ag_name)
+  resource_group_name = local.sql_resource_group_name
+  short_name          = var.short_name
 
   email_receiver {
     name          = var.name
