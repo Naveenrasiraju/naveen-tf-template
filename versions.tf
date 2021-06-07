@@ -1,3 +1,5 @@
-provider "kubernetes" {
-  config_path = "~/.kube/config"
+
+provider "azurerm" {
+  version = "=2.26.0"
+  features {}
 }
