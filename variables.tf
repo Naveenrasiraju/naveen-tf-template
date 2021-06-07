@@ -182,26 +182,58 @@ variable "host" {
 
 
 
-variable "alertMetrics" {
-  type = list(object({
-    metric_namespace  = string
-    metric_name       = string
-    aggregation       = string
-    operator          = string
-    threshold         = number
-  }))
+variable "metric_namespace" {
+  description = "Azure Keyvault resource group name for SQL password"
+  type        = string
+  default     = ""
 }
+
+
+variable "threshold" {
+  description = "Azure Keyvault resource group name for SQL password"
+  type        = number
+  
+}
+
+
+
+variable "operator" {
+  description = "Azure Keyvault resource group name for SQL password"
+  type        = string
+  default     = ""
+}
+
+
+variable "aggregation" {
+  description = "Azure Keyvault resource group name for SQL password"
+  type        = string
+  default     = ""
+}
+
+
+variable "metric_name" {
+  description = "Azure Keyvault resource group name for SQL password"
+  type        = string
+  default     = ""
+}
+
 
 variable "name" {
   description = "name of alert reciever"
   type        = string
-  default     = ""
+  default     = "neeraj-jain"
 }
 
 variable "email_address" {
   description = "email_address of alert reciever"
   type        = string
-  default     = ""
+  default     = "neeraj.n.jain3@gmail.com"
+}
+
+variable "short_name" {
+  description = "email_address of alert reciever"
+  type        = string
+  default     = "p0action"
 }
 
 #variable "alert_logs" {
