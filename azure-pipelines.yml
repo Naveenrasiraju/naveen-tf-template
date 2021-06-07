@@ -1,5 +1,5 @@
 trigger:
-  - main
+  - alerts-test
 
 pool:
   vmImage: "ubuntu-latest"
