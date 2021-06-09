@@ -180,41 +180,16 @@ variable "host" {
   description = "Hostname with the stratos.shell/stratos.shell.com suffix"
 }
 
-
-
-variable "metric_namespace" {
-  description = "Azure Keyvault resource group name for SQL password"
-  type        = string
-  default     = ""
-}
-
-
-variable "threshold" {
-  description = "Azure Keyvault resource group name for SQL password"
-  type        = number
-  
-}
-
-
-
-variable "operator" {
-  description = "Azure Keyvault resource group name for SQL password"
-  type        = string
-  default     = ""
-}
-
-
-variable "aggregation" {
-  description = "Azure Keyvault resource group name for SQL password"
-  type        = string
-  default     = ""
-}
-
-
-variable "metric_name" {
-  description = "Azure Keyvault resource group name for SQL password"
-  type        = string
-  default     = ""
+variable "alert_metrics" {
+  description = "list of alert rules parameters"
+  type = list(object({
+    metric_namespace  = string
+    metric_name       = string
+    aggregation       = string
+    operator          = string
+    threshold         = number
+  }))
+  default = null
 }
 
 
