@@ -136,12 +136,15 @@ resource "azurerm_monitor_metric_alert" "alertMetricsRule" {
   scopes              = [azurerm_function_app.fn.id]
 
 
-  criteria {
-      metric_namespace =  var.metric_namespace
-      metric_name      =  var.metric_name
-      aggregation      =  var.aggregation
-      operator         =  var.operator
-      threshold        =  var.threshold
+  dynamic "criteria" {
+    for_each = var.alert_metrics
+    content {
+      metric_namespace =  criteria.value.metric_namespace
+      metric_name      =  criteria.value.metric_name
+      aggregation      =  criteria.value.aggregation
+      operator         =  criteria.value.operator
+      threshold        =  criteria.value.threshold
+    }
   }
 
   action {
