@@ -168,11 +168,11 @@ variable "runtime_version" {
 }
 
 
-variable "integration_subnet_id" {
-  type        = string
-  default     = ""
-  description = "Subnet IDS for VNet integration"
-}
+#variable "integration_subnet_id" {
+#  type        = string
+#  default     = ""
+#  description = "Subnet IDS for VNet integration"
+#}
 
 variable "host" {
   type        = string

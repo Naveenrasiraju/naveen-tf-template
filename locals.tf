@@ -16,7 +16,7 @@ locals {
   name                             = "${substr(var.projectStream, 0, 4)}${lower(local.wkstm)}-${var.placement}-${var.environment}-${module.tag.location_short}-${var.releaseVersion}-appf-${var.nameSuffix}"
   ag_name                          = "${substr(var.projectStream, 0, 4)}${lower(local.wkstm)}-${var.placement}-${var.environment}-${module.tag.location_short}-${var.releaseVersion}-ag-${var.nameSuffix}"
   al_name                          = "${substr(var.projectStream, 0, 4)}${lower(local.wkstm)}-${var.placement}-${var.environment}-${module.tag.location_short}-${var.releaseVersion}-al-${var.nameSuffix}"
-  integration_subnet_id            = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${local.vnet_rg}/providers/Microsoft.Network/virtualNetworks/${local.vnet}/subnets/${local.subnet}"
+  #integration_subnet_id            = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${local.vnet_rg}/providers/Microsoft.Network/virtualNetworks/${local.vnet}/subnets/${local.subnet}"
   identity_ids                     = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${local.vnet_rg}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/${local.useridentity}"
   ostype                           = lower(var.os_type) == "linux" ? "LNX" : "WIN"
   ainame                           = "${var.projectStream}${var.workStream}-${var.environment}-ai${var.nameSuffix}"

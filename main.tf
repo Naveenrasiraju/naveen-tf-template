@@ -112,10 +112,10 @@ data "azurerm_client_config" "current" {
 
 
 # Vnet integration
-resource "azurerm_app_service_virtual_network_swift_connection" "vnet_integration" {
-  app_service_id = azurerm_function_app.fn.id
-  subnet_id      = var.integration_subnet_id == "" ? local.integration_subnet_id : var.integration_subnet_id
-}
+#resource "azurerm_app_service_virtual_network_swift_connection" "vnet_integration" {
+#  app_service_id = azurerm_function_app.fn.id
+#  subnet_id      = var.integration_subnet_id == "" ? local.integration_subnet_id : var.integration_subnet_id
+#}
 
 
 
