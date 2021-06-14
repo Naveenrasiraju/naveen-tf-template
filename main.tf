@@ -131,6 +131,7 @@ resource "azurerm_monitor_action_group" "main" {
 }
 
 resource "azurerm_monitor_metric_alert" "alertMetricsRule" {
+  count               = var.alert_metrics == null ? 0 : 1
   name                = lower(local.al_name)
   resource_group_name = data.azurerm_resource_group.rg.name
   scopes              = [azurerm_function_app.fn.id]
