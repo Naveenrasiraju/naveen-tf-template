@@ -1,181 +1,76 @@
-variable "placement" {
-  description = "placement"
-  default     = "PUB"
-  type        = string
+variable "redis_cache_name" {
+  description = "The name of the redis cache."
+   type        = string
+  default     = "prademorediscache123"
 }
 
-variable "instance" {
-  description = "Instance number"
-  default     = "001"
-  type        = string
+variable "redis_cache_resource_group_name" {
+  description = "The resource group name of the redis cache."
+   type        = string
+  default     = "myresourcegroup"
 }
 
-variable "project" {
-  description = "project name"
-  type        = string
-  default     = "Stratos"
-}
-variable "projectStream" {
-  description = " 4 character project stream name/code "
-  type        = string
+variable "redis_cache_location" {
+  description = "The location of the redis cache."
+   type        = string
+  default     = "westeurope"
 }
 
-variable "workStream" {
-  description = " 3 character workstream name/code "
-  type        = string
+variable "redis_cache_capacity" {
+  description = "Redis cache capacity."
+   type        = string
+  default     = "0"
 }
 
-variable "region" {
-  type        = string
-  description = "region. Choose from australia, europe, asia, europe"
+variable "redis_cache_family" {
+  description = "Redis cache family."
+   type        = string
+  default     = "C"
 }
 
-variable "releaseVersion" {
-  description = "releaseVersion"
-  default     = "100"
-  type        = string
+variable "redis_cache_sku_name" {
+  description = "Redis cache sku name."
+   type        = string
+  default     = "basic"
 }
 
-
-variable "owner" {
-  description = "owner"
-  type        = string
-}
-
-
-variable "environment" {
-  description = "Environment. Upto 5 character. For e.g. dev, dev01 , prd01"
-  type        = string
-}
-
-
-variable "fn_app_additional_tags" {
-  description = "Additional tags for the App Service resources, in addition to the resource group tags."
-  type        = map(string)
-  default     = {}
-}
-
-
-
-variable "resource_group_name" {
-  type        = string
-  default     = ""
-  description = "Resource Group name where the fn app needs to be created"
-}
-
-
-variable "os_type" {
+variable "redis_cache_enable_non_ssl_port" {
+  description = "Redis cache option to enable non ssl port or not. The default value is false"
+  default     = "false"
+   type        = string
   
-  type        = string
+}
+
+variable "redis_cache_maxmemory_policy" {
+  description = "Redis cache max memory policy."
+  default     = "allkeys-lru"
+   type        = string
+
+}
+
+variable "redis_cache_maxmemory_reserved" {
+  description = "Redis cache max memory reserved."
+  default     = "214"
+   type        = string
+
+}
+
+variable "redis_cache_maxmemory_delta" {
+  description = "Redis cache max memory delta."
+  default     = "214"
+}
+
+variable "has_redis_cache_georeplication" {
+  description = "If true, the module will enable the geo replication between regions."
+  default     = "false"
+}
+
+variable "redis_cache_replication_role" {
+  description = "Redis cache replication role. The value of this variable must be Primary or Secondary."
+  default     = "Primary"
+}
+
+variable "redis_cache_georeplication_name" {
   default     = null
-  description = "OS Type for the fn app. Should match with App Service plan"
-}
-
-
-variable "existing_asp_name" {
-  type        = string
-  default     = ""
-  description = "Existing App Service plan name"
-}
-
-variable "existing_asp_resource_group_name" {
-  default     = ""
-  type        = string
-  description = "Existing App Service plan resource Group"
-}
-
-variable "auth_settings" {
-  type = map(object({
-    auth_enabled = bool
-  }))
-  description = "Authentication Settings "
-  default     = {}
-}
-
-
-variable "active_directory" {
-  type        = any
-  default     = {}
-  description = "A map object for Active Directory. please refer https://www.terraform.io/docs/providers/azurerm/r/function_app.html"
-}
-
-
-
-variable "connection_strings" {
-  type = list(object({
-    name  = string
-    type  = string
-    value = string
-  }))
-  default     = []
-  description = "connection strings for fn app"
-}
-
-
-
-variable "application_insights_type" {
-  type        = string
-  default     = "web"
-  description = "App insights type"
-}
-variable "site_config" {
-  type = map(object({
-    always_on                 = bool
-    http2_enabled             = bool
-    ftps_state                = string
-    use_32_bit_worker_process = bool
-    websockets_enabled        = bool
-  }))
-  default     = {}
-  description = "Site config block for Fn app"
-}
-variable "linux_fx_version" {
-  type        = string
-  default     = ""
-  description = "Linux Docker image to use"
-}
-
-variable "nameSuffix" {
-  type        = string
-  description = "name suffix for the function app"
-}
-variable "site_config_ip_restrictions" {
-  type        = any
-  default     = []
-  description = "site config ip restrictions block parameters for fn app"
-}
-
-variable "site_config_cors" {
-  type = map(object({
-    allowed_origins     = list(string)
-    support_credentials = bool
-  }))
-  default     = {}
-  description = "Site config core parameters for Fn app"
-}
-
-variable "app_settings" {
-  type        = map(string)
-  default     = {}
-  description = "App Settings. Package deploy configured"
-}
-
-
-variable "runtime_version" {
-  type        = string
-  default     = "~3"
-  description = "Run time version of the Fn app"
-}
-
-
-variable "integration_subnet_id" {
-  type        = string
-  default     = ""
-  description = "Subnet IDS for VNet integration"
-}
-
-variable "host" {
-  type        = string
-  default     = ""
-  description = "Hostname with the stratos.shell/stratos.shell.com suffix"
+  description = "The name of the geo replication redis cache."
 }
