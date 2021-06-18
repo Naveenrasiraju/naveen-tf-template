@@ -215,10 +215,3 @@ variable "short_name" {
 #  type = list(map(string))
 #}
 
-variable "ingressEnabled" {
-  type = map(object({
-    ingressEnabled = bool
-  }))
-  description = "ingress enabled"
-  default     = ""
-}
