@@ -214,3 +214,11 @@ variable "short_name" {
 #variable "alert_logs" {
 #  type = list(map(string))
 #}
+
+variable "ingressEnabled" {
+  type = map(object({
+    ingressEnabled = bool
+  }))
+  description = "ingress enabled"
+  default     = ""
+}
