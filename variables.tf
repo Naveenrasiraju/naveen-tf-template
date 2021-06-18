@@ -215,3 +215,9 @@ variable "short_name" {
 #  type = list(map(string))
 #}
 
+
+variable "ingressEnabled" {
+  type = bool
+  description = "ingress condition"
+  default     = false
+}
