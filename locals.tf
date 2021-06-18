@@ -25,7 +25,4 @@ locals {
   resource_group_name              = "${upper(substr(var.projectStream, 0, 4))}${upper(local.wkstm)}-${upper(var.placement)}-P-${upper(var.environment)}-${upper(var.releaseVersion)}-${upper(var.instance)}-APP-RG"
 
   k8s_namespace = "${substr(var.projectStream, 0, 4)}${local.wkstm}-${var.environment}-${var.placement}"
-
-
-
 }
