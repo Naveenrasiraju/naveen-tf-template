@@ -1,5 +1,6 @@
 resource "kubernetes_service" "fn_svc" {
-  count = var.host == "" ? 0 : 1
+  count = var.ingressEnabled == "" ? 0 : 1
+  count = 
   metadata {
     name      = "${var.nameSuffix}-service"
     namespace = lower(local.k8s_namespace)
@@ -18,7 +19,7 @@ resource "kubernetes_service" "fn_svc" {
 
 
 resource "kubernetes_ingress" "fn_ingress" {
-  count = var.host == "" ? 0 : 1
+  count = var.ingressEnabled == "" ? 0 : 1
   metadata {
     name      = "${var.nameSuffix}-ingress"
     namespace = lower(local.k8s_namespace)
