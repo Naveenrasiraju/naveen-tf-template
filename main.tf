@@ -112,7 +112,43 @@ data "azurerm_client_config" "current" {
 
 
 # Vnet integration
-resource "azurerm_app_service_virtual_network_swift_connection" "vnet_integration" {
-  app_service_id = azurerm_function_app.fn.id
-  subnet_id      = var.integration_subnet_id == "" ? local.integration_subnet_id : var.integration_subnet_id
+#resource "azurerm_app_service_virtual_network_swift_connection" "vnet_integration" {
+#  app_service_id = azurerm_function_app.fn.id
+#  subnet_id      = var.integration_subnet_id == "" ? local.integration_subnet_id : var.integration_subnet_id
+#}
+
+
+
+resource "azurerm_monitor_action_group" "main" {
+  name                = lower(local.ag_name)
+  resource_group_name = data.azurerm_resource_group.rg.name
+  short_name          = var.short_name
+
+  email_receiver {
+    name          = var.name
+    email_address = var.email_address
+  }
+}
+
+resource "azurerm_monitor_metric_alert" "alertMetricsRule" {
+  count               = var.alert_metrics == null ? 0 : 1
+  name                = lower(local.al_name)
+  resource_group_name = data.azurerm_resource_group.rg.name
+  scopes              = [azurerm_function_app.fn.id]
+
+
+  dynamic "criteria" {
+    for_each = var.alert_metrics
+    content {
+      metric_namespace =  criteria.value.metric_namespace
+      metric_name      =  criteria.value.metric_name
+      aggregation      =  criteria.value.aggregation
+      operator         =  criteria.value.operator
+      threshold        =  criteria.value.threshold
+    }
+  }
+
+  action {
+    action_group_id = azurerm_monitor_action_group.main.id
+  }
 }

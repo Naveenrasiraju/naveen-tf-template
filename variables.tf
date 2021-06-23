@@ -168,14 +168,49 @@ variable "runtime_version" {
 }
 
 
-variable "integration_subnet_id" {
-  type        = string
-  default     = ""
-  description = "Subnet IDS for VNet integration"
-}
+#variable "integration_subnet_id" {
+#  type        = string
+#  default     = ""
+#  description = "Subnet IDS for VNet integration"
+#}
 
 variable "host" {
   type        = string
   default     = ""
   description = "Hostname with the stratos.shell/stratos.shell.com suffix"
 }
+
+variable "alert_metrics" {
+  description = "list of alert rules parameters"
+  type = list(object({
+    metric_namespace  = string
+    metric_name       = string
+    aggregation       = string
+    operator          = string
+    threshold         = number
+  }))
+  default = null
+}
+
+
+variable "name" {
+  description = "name of alert reciever"
+  type        = string
+  default     = "neeraj-jain"
+}
+
+variable "email_address" {
+  description = "email_address of alert reciever"
+  type        = string
+  default     = "neeraj.n.jain3@gmail.com"
+}
+
+variable "short_name" {
+  description = "email_address of alert reciever"
+  type        = string
+  default     = "p1action"
+}
+
+#variable "alert_logs" {
+#  type = list(map(string))
+#}
