@@ -196,13 +196,13 @@ variable "alert_metrics" {
 variable "name" {
   description = "name of alert reciever"
   type        = string
-  default     = "neeraj-jain"
+  default     = ""
 }
 
 variable "email_address" {
   description = "email_address of alert reciever"
   type        = string
-  default     = "neeraj.n.jain3@gmail.com"
+  default     = "firstname.lastname@shell.com"
 }
 
 variable "short_name" {
