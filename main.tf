@@ -120,6 +120,7 @@ data "azurerm_client_config" "current" {
 
 
 resource "azurerm_monitor_action_group" "main" {
+  count               = var.name == "" || var.email_address == "" ? 0 : 1
   name                = lower(local.ag_name)
   resource_group_name = data.azurerm_resource_group.rg.name
   short_name          = var.short_name
@@ -135,7 +136,6 @@ resource "azurerm_monitor_metric_alert" "alertMetricsRule" {
   name                = lower(local.al_name)
   resource_group_name = data.azurerm_resource_group.rg.name
   scopes              = [azurerm_function_app.fn.id]
-
 
   dynamic "criteria" {
     for_each = var.alert_metrics
