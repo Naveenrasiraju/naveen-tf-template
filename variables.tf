@@ -202,15 +202,11 @@ variable "name" {
 variable "email_address" {
   description = "email_address of alert reciever"
   type        = string
-  default     = "firstname.lastname@shell.com"
+  default     = ""
 }
 
 variable "short_name" {
-  description = "email_address of alert reciever"
+  description = "short_name for alert"
   type        = string
   default     = "p1action"
 }
-
-#variable "alert_logs" {
-#  type = list(map(string))
-#}
