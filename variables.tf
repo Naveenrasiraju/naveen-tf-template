@@ -180,6 +180,12 @@ variable "host" {
   description = "Hostname with the stratos.shell/stratos.shell.com suffix"
 }
 
+variable "enableIngress" {
+  type        = string
+  default     = ""
+  description = "Hostname with the stratos.shell/stratos.shell.com suffix"
+}
+
 variable "alert_metrics" {
   description = "list of alert rules parameters"
   type = list(object({
