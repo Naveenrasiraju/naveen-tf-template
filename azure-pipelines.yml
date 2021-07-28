@@ -50,8 +50,6 @@ steps:
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
     displayName: Commit & push results to sedp-tf-az-fnapp
     workingDirectory: sedp-tf-az-fnapp
-    displayName: Point kubeform to the right revision of sedp-tf-az-fnapp
-    workingDirectory: kubeform
   - script: go mod tidy && go mod vendor
     displayName: Update vendored version of sedp-tf-az-fnapp in kubeform
     workingDirectory: kubeform
