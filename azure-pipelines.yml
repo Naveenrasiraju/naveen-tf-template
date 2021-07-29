@@ -44,11 +44,11 @@ steps:
   - script: |
       cp .provider/* .
       terraform init
-    displayName: Terraform Init
+       displayName: Terraform Init
 
   - script: |
       terraform validate
-    displayName: Terraform Validate
+      displayName: Terraform Validate
 	
   - script: |
       git add -A
