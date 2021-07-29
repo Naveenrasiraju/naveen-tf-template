@@ -8,14 +8,17 @@ trigger:
     include:
       - module-sources.json
 
+# this is being defined in app-ci pipeline
 resources:
   pipelines:
-  - pipeline: kubeform   # Name of the pipeline resource
-    source: kubeform # Name of the pipeline referenced by the pipeline resource
+  - pipeline: kubeform
+    source: kubeform
     trigger: 
       branches:
-      - releases/*
-      - master
+        include: 
+        - test1
+        exclude:
+        - master
   
 pool:
   vmImage: "ubuntu-latest"
