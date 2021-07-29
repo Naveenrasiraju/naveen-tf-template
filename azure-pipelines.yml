@@ -38,6 +38,28 @@ steps:
       terraform validate
     displayName: Terraform Validate
 
+   - checkout: self
+    displayName: Checkout kubeform
+    persistCredentials: true
+  - checkout: kfc
+    displayName: Checkout kfc
+    persistCredentials: true
+  - script: echo $DOCKER_PASSWORD | docker login stratosprd.azurecr.io  -u $DOCKER_LOGIN --password-stdin
+    displayName: Login to Stratos ACR
+    env:
+      DOCKER_LOGIN: $(DOCKER_LOGIN)
+      DOCKER_PASSWORD: $(DOCKER_PASSWORD)
+  - task: KubectlInstaller@0
+    inputs:
+      kubectlVersion: "1.18.3"
+  - task: GoTool@0
+    inputs:
+      version: "1.14.6"
+  - script: |
+      git config --global user.email "sedp-ci@shell.com"
+      git config --global user.name "Azure Pipeline"
+      git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/kubeform".insteadOf https://dev.azure.com/sede-ds-adp/kubeform
+    displayName: Set git properties
 
 resources:
   repositories:
@@ -49,19 +71,3 @@ resources:
       type: git
       name: Platform - General/kfc
     
-    - script: echo $DOCKER_PASSWORD | docker login stratosprd.azurecr.io  -u $DOCKER_LOGIN --password-stdin
-    displayName: Login to Stratos ACR
-    env:
-      DOCKER_LOGIN: $(DOCKER_LOGIN)
-      DOCKER_PASSWORD: $(DOCKER_PASSWORD)
-    - task: KubectlInstaller@0
-      inputs:
-      kubectlVersion: "1.18.3"
-    - task: GoTool@0
-      inputs:
-        version: "1.14.6"
-    - script: |
-        git config --global user.email "sedp-ci@shell.com"
-        git config --global user.name "Azure Pipeline"
-        git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-tagging".insteadOf https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging
-      displayName: Set git properties
