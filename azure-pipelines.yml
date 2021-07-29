@@ -1,5 +1,6 @@
 trigger:
   - main
+  - tag/v(.*)[0-9]
 
 pool:
   vmImage: "ubuntu-latest"
