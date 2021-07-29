@@ -62,7 +62,5 @@ steps:
       terraform validate
     displayName: Terraform Validate
   
-  - checkout: self
-    displayName: Checkout kubeform
-    persistCredentials: true
+
   
