@@ -19,19 +19,12 @@ variables:
     value: stratosprd.azurecr.io/kubeform
 
 resources:
-  pipelines:
-  - pipeline: 'kubeform'
-        source: 'kubeform'
-
   repositories:
     - repository: kubeform
       type: git
       name: Platform - General/kubeform
     
-    - repository: kfc
-      type: git
-      name: Platform - General/kfc
-    
+
 
 steps:
   - checkout: self
@@ -54,4 +47,3 @@ steps:
   - script: |
       terraform validate
     displayName: Terraform Validate
-  
