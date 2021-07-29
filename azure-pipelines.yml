@@ -27,8 +27,4 @@ variables:
 
 steps:
   - checkout: self
-    displayName: Checkout sedp-tf-az-fnapp
-    persistCredentials: true
   - checkout: kubeform
-    displayName: Checkout kubeform
-    persistCredentials: true
