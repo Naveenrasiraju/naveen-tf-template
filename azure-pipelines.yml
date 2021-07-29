@@ -34,14 +34,7 @@ variables:
   - name: REGISTRY
     value: stratosprd.azurecr.io/kubeform
 
-resources:
-  repositories:
-    - repository: kubeform
-      type: git
-      name: Platform - General/kubeform
-    
-
-    
+   
 
 
 steps:
