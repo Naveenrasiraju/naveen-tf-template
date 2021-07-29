@@ -7,6 +7,15 @@ trigger:
   paths:
     include:
       - module-sources.json
+
+resources:
+  pipelines:
+  - pipeline: kubeform   # Name of the pipeline resource
+    source: kubeform # Name of the pipeline referenced by the pipeline resource
+    trigger: 
+      branches:
+      - releases/*
+      - master
   
 pool:
   vmImage: "ubuntu-latest"
@@ -31,9 +40,7 @@ resources:
       type: git
       name: Platform - General/kubeform
     
-    - repository: kfc
-      type: git
-      name: Platform - General/kfc
+
     
 
 
