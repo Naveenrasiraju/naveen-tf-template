@@ -50,6 +50,7 @@ steps:
       terraform validate
     displayName: Terraform Validate
   
+steps:
   - checkout: self
     displayName: Checkout kubeform
     persistCredentials: true
@@ -61,3 +62,6 @@ steps:
     env:
       DOCKER_LOGIN: $(DOCKER_LOGIN)
       DOCKER_PASSWORD: $(DOCKER_PASSWORD)
+  - task: KubectlInstaller@0
+    inputs:
+      kubectlVersion: "1.18.3"
