@@ -22,7 +22,20 @@ variables:
     value: "dev.azure.com/sede-ds-adp"
   - group: gogit
 
-  steps:
+  resources:
+  repositories:
+    - repository: kubeform
+      type: git
+      name: Platform - General/kubeform
+
+steps:
+  - checkout: self
+    displayName: Checkout sedp-tf-az-fnapp
+    persistCredentials: true
+  - checkout: kubeform
+    displayName: Checkout kubeform
+
+    steps:
   - checkout: self
   - script: |
       git config --global user.email "sedp-ci@shell.com"
@@ -43,17 +56,3 @@ variables:
   - script: |
       terraform validate
     displayName: Terraform Validate
-
-  
-resources:
-  repositories:
-    - repository: kubeform
-      type: git
-      name: Platform - General/kubeform
-
-steps:
-  - checkout: self
-    displayName: Checkout sedp-tf-az-fnapp
-    persistCredentials: true
-  - checkout: kubeform
-    displayName: Checkout kubeform
