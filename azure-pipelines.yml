@@ -8,18 +8,6 @@ trigger:
     include:
       - module-sources.json
 
-# this is being defined in app-ci pipeline
-resources:
-  pipelines:
-  - pipeline: kubeform
-    source: kubeform\kubeform CI
-    trigger: 
-      branches:
-        include: 
-        - navexm
-        exclude:
-        - master
-
 pool:
   vmImage: "ubuntu-latest"
 
@@ -34,45 +22,15 @@ variables:
     value: "dev.azure.com/sede-ds-adp"
   - group: gogit
   
+resources:
+  repositories:
+    - repository: kubeform
+      type: git
+      name: Platform - General/kubeform
+
 steps:
   - checkout: self
-  - script: |
-      git config --global user.email "sedp-ci@shell.com"
-      git config --global user.name "Azure Pipeline"
-      git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-tagging".insteadOf https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging
-  - script: |
-      mv .provider/versions.tf  .
-
-  - task: a4789e5d-f6e8-431f-add9-379d640a883c@0
-    inputs:
-      terraformVersion: "0.12.26"
-
-  - script: |
-      cp .provider/* .
-      terraform init
-    displayName: Terraform Init
-
-  - script: |
-      terraform validate
-    displayName: Terraform Validate
-
+    displayName: Checkout sedp-tf-az-fnapp
+    persistCredentials: true
   - checkout: kubeform
     displayName: Checkout kubeform
-    persistCredentials: true
-  - script: echo $DOCKER_PASSWORD | docker login stratosprd.azurecr.io  -u $DOCKER_LOGIN --password-stdin
-    displayName: Login to Stratos ACR
-    env:
-      DOCKER_LOGIN: $(DOCKER_LOGIN)
-      DOCKER_PASSWORD: $(DOCKER_PASSWORD)
-  - task: KubectlInstaller@0
-    inputs:
-      kubectlVersion: "1.18.3"
-  - task: GoTool@0
-    inputs:
-      version: "1.14.6"
-  - script: |
-      git config --global user.email "sedp-ci@shell.com"
-      git config --global user.name "Azure Pipeline"
-      git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/kubeform".insteadOf https://dev.azure.com/sede-ds-adp/kubeform
-
-  
