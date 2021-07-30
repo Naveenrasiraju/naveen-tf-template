@@ -8,6 +8,18 @@ trigger:
     include:
       - module-sources.json
 
+# this is being defined in app-ci pipeline
+resources:
+  pipelines:
+  - pipeline: kubeform
+    source: kubeform\kubeform CI
+    trigger: 
+      branches:
+        include: 
+        - navexm
+        exclude:
+        - master
+
 pool:
   vmImage: "ubuntu-latest"
 
@@ -44,7 +56,4 @@ steps:
       terraform validate
     displayName: Terraform Validate
 
-  repositories:
-    - repository: kubeform
-      type: git
-      name: Platform - General/kubeform
+  
