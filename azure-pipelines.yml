@@ -56,4 +56,13 @@ steps:
       terraform validate
     displayName: Terraform Validate
 
+    steps:
+  - checkout: self
+    displayName: Checkout sedp-tf-az-fnapp
+    persistCredentials: true
+  - checkout: kubeform
+    displayName: Checkout kubeform
+    persistCredentials: true
+  - script: echo $DOCKER_PASSWORD | docker login stratosprd.azurecr.io  -u $DOCKER_LOGIN --password-stdin
+
   
