@@ -45,3 +45,13 @@ steps:
   - script: |
       terraform validate
     displayName: Terraform Validate
+  - task: KubectlInstaller@0
+    inputs:
+      kubectlVersion: "1.18.3"
+  - task: GoTool@0
+    inputs:
+      version: "1.14.6"
+  - script: |
+      git config --global user.email "sedp-ci@shell.com"
+      git config --global user.name "Azure Pipeline"
+      git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/kubeform".insteadOf https://dev.azure.com/sede-ds-adp/kubeform
