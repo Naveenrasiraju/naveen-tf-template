@@ -21,6 +21,9 @@ variables:
   - name: GOPRIVATE
     value: "dev.azure.com/sede-ds-adp"
   - group: gogit
+  - group: stratos_acr
+  - name: REGISTRY
+    value: stratosprd.azurecr.io/kubeform
 
   resources:
   repositories:
