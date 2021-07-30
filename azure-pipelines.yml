@@ -43,3 +43,8 @@ steps:
   - script: |
       terraform validate
     displayName: Terraform Validate
+
+  repositories:
+    - repository: kubeform
+      type: git
+      name: Platform - General/kubeform
