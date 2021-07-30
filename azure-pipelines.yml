@@ -56,10 +56,6 @@ steps:
       terraform validate
     displayName: Terraform Validate
 
-    steps:
-  - checkout: self
-    displayName: Checkout navexm
-    persistCredentials: true
   - checkout: kubeform
     displayName: Checkout kubeform
     persistCredentials: true
