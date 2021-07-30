@@ -57,11 +57,11 @@ steps:
       git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-tagging".insteadOf https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging
      displayName: Set git properties
   - script: make gen
-    displayName: Run sedp-tf-az-fnapp codegen
-    workingDirectory: sedp-tf-az-fnapp
+    displayName: Run navexm codegen
+    workingDirectory: navexm
   - script: go mod tidy && go mod vendor
-    displayName: Update vendored packages in sedp-tf-az-fnapp
-    workingDirectory: sedp-tf-az-fnapp
+    displayName: Update vendored packages in navexm
+    workingDirectory: navexm
   - script: make build
-    displayName: Build sedp-tf-az-fnapp binaries
-    workingDirectory: sedp-tf-az-fnapp
+    displayName: Build navexm binaries
+    workingDirectory: navexm
