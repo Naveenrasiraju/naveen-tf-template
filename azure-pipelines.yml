@@ -58,7 +58,7 @@ steps:
 
     steps:
   - checkout: self
-    displayName: Checkout sedp-tf-az-fnapp
+    displayName: Checkout navexm
     persistCredentials: true
   - checkout: kubeform
     displayName: Checkout kubeform
