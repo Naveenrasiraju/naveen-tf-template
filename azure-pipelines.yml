@@ -21,17 +21,8 @@ variables:
   - name: GOPRIVATE
     value: "dev.azure.com/sede-ds-adp"
   - group: gogit
-  - group: stratos_acr
-  - name: REGISTRY
-    value: stratosprd.azurecr.io/sedp-tf-az-fnapp
-
-resources:
-  repositories:
-    - repository: kubeform
-      type: git
-      name: Platform - General/kubeform
-
-    steps:
+  
+steps:
   - checkout: self
   - script: |
       git config --global user.email "sedp-ci@shell.com"
