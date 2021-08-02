@@ -47,6 +47,7 @@ steps:
       git config --global user.name "Azure Pipeline"
       git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-fnapp".insteadOf https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-fnapp
   - script: |
+      ls -la 
       mv .provider/versions.tf  .
 
   - task: a4789e5d-f6e8-431f-add9-379d640a883c@0
