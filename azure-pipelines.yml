@@ -49,22 +49,22 @@ steps:
     displayName: Set git properties
   - script: make gen
     displayName: Run kubeform codegen
-    workingDirectory: kubeform
+    workingDirectory: sedp-tf-az-fnapp
   - script: go mod tidy && go mod vendor
     displayName: Update vendored packages in kubeform
-    workingDirectory: kubeform
+    workingDirectory: sedp-tf-az-fnapp
   - script: make build
     displayName: Build kubeform binaries
-    workingDirectory: kubeform
+    workingDirectory: sedp-tf-az-fnapp
   - script: |
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
-    displayName: Commit & push results to kubeform
-    workingDirectory: kubeform
+    displayName: Commit & push results to sedp-tf-az-fnapp
+    workingDirectory: sedp-tf-az-fnapp
   - script: git rev-parse HEAD > ../kubeform-sha
     displayName: Store kubeform revision for kfc to use
-    workingDirectory: kubeform
+    workingDirectory: sedp-tf-az-fnapp
   - script: go mod edit -replace "kubeform.dev/kubeform=dev.azure.com/sede-ds-adp/kubeform.git@$(cat ../kubeform-sha)"
     displayName: Point sedp-tf-az-fnapp to the right revision of kubeform
     workingDirectory: sedp-tf-az-fnapp
