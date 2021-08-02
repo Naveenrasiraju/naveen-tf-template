@@ -25,7 +25,7 @@ resources:
       name: Platform - General/kubeform
     
 steps:
-  - checkout: sedp-tf-az-fnapp
+  - checkout: self
     displayName: Checkout sedp-tf-az-fnapp
     persistCredentials: true
   - checkout: kubeform
