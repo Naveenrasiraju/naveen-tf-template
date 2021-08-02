@@ -46,7 +46,7 @@ steps:
       git config --global user.email "sedp-ci@shell.com"
       git config --global user.name "Azure Pipeline"
       git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-fnapp".insteadOf https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-fnapp
-      displayName: Set git properties
+    displayName: Set git properties
   - script: make gen
     displayName: Run kubeform codegen
     workingDirectory: kubeform
