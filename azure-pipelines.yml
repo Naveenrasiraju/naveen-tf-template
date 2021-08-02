@@ -80,7 +80,6 @@ steps:
   - script: make build
     displayName: Build kfc binaries
     workingDirectory: sedp-tf-az-fnapp
-    workingDirectory: sedp-tf-az-fnapp
   - script: make container
     displayName: Build sedp-tf-az-fnapp containers
     workingDirectory: sedp-tf-az-fnapp
