@@ -23,6 +23,10 @@ resources:
     - repository: kubeform
       type: git
       name: Platform - General/kubeform
+
+    - repository: kfc
+      type: git
+      name: Platform - General/kfc
     
 steps:
   - checkout: self
@@ -42,6 +46,21 @@ steps:
   - task: GoTool@0
     inputs:
       version: "1.14.6"
+  
+  - script: |
+      ls -la
+      cd sedp-tf-az-fnapp
+      cp .provider/versions.tf .  
+
+  - task: a4789e5d-f6e8-431f-add9-379d640a883c@0
+    inputs:
+      terraformVersion: "0.12.26"
+
+  - script: |
+      cp .provider/* .
+      terraform init
+    displayName: Terraform Init
+
   - script: |
       git config --global user.email "sedp-ci@shell.com"
       git config --global user.name "Azure Pipeline"
@@ -66,23 +85,10 @@ steps:
   - script: git rev-parse HEAD > ../kubeform-sha
     displayName: Store kubeform revision for kfc to use
     workingDirectory: kubeform
-  - script: |
-      ls -la
-      cd sedp-tf-az-fnapp
-      cp .provider/versions.tf .  
 
-  - task: a4789e5d-f6e8-431f-add9-379d640a883c@0
-    inputs:
-      terraformVersion: "0.12.26"
 
-  - script: |
-      cp .provider/* .
-      terraform init
-    displayName: Terraform Init
 
-  - script: |
-      terraform validate
-    displayName: Terraform Validate
+
   - task: KubectlInstaller@0
     inputs:
       kubectlVersion: "1.18.3"
