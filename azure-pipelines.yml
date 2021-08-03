@@ -57,15 +57,15 @@ steps:
   - script: make build
     displayName: Build kubeform binaries
     workingDirectory: kubeform 
-  - script: |
+   - script: |
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
-      git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
-    displayName: Commit & push results to sedp-tf-az-fnapp
+      git push -f origin HEAD:${BUILD_SOURCEBRANCH}
+    displayName: Commit & push changes to kubeform
     workingDirectory: kubeform
   - script: git rev-parse HEAD > ../kubeform-sha
     displayName: Store kubeform revision for kfc to use
-    workingDirectory: sedp-tf-az-fnapp
+    workingDirectory: kubeform
   - script: |
       ls -la
       cd sedp-tf-az-fnapp
