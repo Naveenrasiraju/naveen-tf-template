@@ -65,27 +65,6 @@ steps:
   - script: git rev-parse HEAD > ../kubeform-sha
     displayName: Store kubeform revision for kfc to use
     workingDirectory: sedp-tf-az-fnapp
-  - script: go mod init && go mod edit -replace "kubeform.dev/kubeform=dev.azure.com/sede-ds-adp/kubeform.git@$(cat ../kubeform-sha)"
-    displayName: Point sedp-tf-az-fnapp to the right revision of kubeform
-    workingDirectory: sedp-tf-az-fnapp
-  - script: go mod tidy && go mod vendor
-    displayName: Update vendored version of kubeform in sedp-tf-az-fnapp
-    workingDirectory: sedp-tf-az-fnapp
-  - script: |
-      git add -A
-      git commit -m "[skip-ci] Update Terraform modules"
-      git push -f origin HEAD:${BUILD_SOURCEBRANCH}
-    displayName: Commit & push changes to sedp-tf-az-fnapp
-    workingDirectory: sedp-tf-az-fnapp
-  - script: make build
-    displayName: Build kfc binaries
-    workingDirectory: sedp-tf-az-fnapp
-  - script: make container
-    displayName: Build sedp-tf-az-fnapp containers
-    workingDirectory: sedp-tf-az-fnapp
-  - script: make push
-    displayName: Push sedp-tf-az-fnapp containers
-    workingDirectory: sedp-tf-az-fnapp
   - script: |
       ls -la 
       cd sedp-tf-az-fnapp
