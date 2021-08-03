@@ -47,15 +47,6 @@ steps:
       git config --global user.name "Azure Pipeline"
       git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/kubeform".insteadOf https://dev.azure.com/sede-ds-adp/kubeform
     displayName: Set git properties
-  - script: make gen
-    displayName: Run kubeform codegen
-    workingDirectory: kubeform
-  - script: go mod tidy && go mod vendor
-    displayName: Update vendored packages in kubeform
-    workingDirectory: kubeform
-  - script: make build
-    displayName: Build kubeform binaries
-    workingDirectory: kubeform
   - script: |
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
@@ -94,6 +85,8 @@ steps:
       git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-tagging".insteadOf https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging
   - script: |
       ls -la
+      cd sedp-tf-az-fnapp
+      git status
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}    
