@@ -1,5 +1,5 @@
 trigger:
-  - navexm
+  - test2
   
 pool:
   vmImage: "ubuntu-latest"
@@ -47,6 +47,7 @@ steps:
       git config --global user.name "Azure Pipeline"
       git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/kubeform".insteadOf https://dev.azure.com/sede-ds-adp/kubeform
     displayName: Set git properties
+  
   - script: make gen
     displayName: Run kubeform codegen
     workingDirectory: kubeform
@@ -94,14 +95,14 @@ steps:
       git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-tagging".insteadOf https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging
   - script: |
       ls -la
-      cd sedp-tf-az-fnapp
+      cd kubeform
       git status
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}    
      
 
-   - script: |
+   -script: |
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
