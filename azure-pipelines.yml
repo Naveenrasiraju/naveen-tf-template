@@ -57,7 +57,7 @@ steps:
   - script: make build
     displayName: Build kubeform binaries
     workingDirectory: kubeform 
-   - script: |
+  - script: |
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
       git push -f origin HEAD:${BUILD_SOURCEBRANCH}
