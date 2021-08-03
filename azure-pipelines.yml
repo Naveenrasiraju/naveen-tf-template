@@ -58,6 +58,7 @@ steps:
     workingDirectory: sedp-tf-az-fnapp
   - script: |
       ls -la
+      cd sedp-tf-az-fnapp
       mv .provider/versions.tf  .
 
   - task: a4789e5d-f6e8-431f-add9-379d640a883c@0
