@@ -100,4 +100,14 @@ steps:
       git commit -m "[skip-ci] Update Terraform modules"
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}    
      
-  
+
+   - script: |
+      git add -A
+      git commit -m "[skip-ci] Update Terraform modules"
+      git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
+      displayName: Commit & push results to kubeform
+      workingDirectory: kubeform
+
+    - script: git rev-parse HEAD > ../kubeform-sha
+      displayName: Store kubeform revision for kfc to use
+      workingDirectory: kubeform
