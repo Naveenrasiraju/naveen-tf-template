@@ -65,7 +65,10 @@ steps:
   - script: git rev-parse HEAD > ../kubeform-sha
     displayName: Store kubeform revision for kfc to use
     workingDirectory: sedp-tf-az-fnapp
-  - script: go mod edit -replace "kubeform.dev/kubeform=dev.azure.com/sede-ds-adp/kubeform.git@$(cat ../kubeform-sha)"
+  - script: |
+      git init
+      git remote add origin "kubeform.dev/kubeform=dev.azure.com/sede-ds-adp/kubeform.git@$(cat ../kubeform-sha)"
+      go mod init
     displayName: Point sedp-tf-az-fnapp to the right revision of kubeform
     workingDirectory: sedp-tf-az-fnapp
   - script: go mod tidy && go mod vendor
