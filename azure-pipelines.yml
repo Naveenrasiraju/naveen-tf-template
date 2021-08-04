@@ -1,17 +1,29 @@
 trigger:
-  - main
-
+  - navtest
+  
 pool:
   vmImage: "ubuntu-latest"
 
 variables:
+  - name: GO111MODULE
+    value: on
+  - name: CGO_ENABLED
+    value: "0"
+  - name: GOROOT
+    value: "/opt/hostedtoolcache/go/1.14.6/x64"
+  - name: GOPRIVATE
+    value: "dev.azure.com/sede-ds-adp"
   - group: gogit
+  - group: stratos_acr
+  - name: REGISTRY
+    value: stratosprd.azurecr.io/kubeform
 
 resources:
   repositories:
     - repository: kubeform
       type: git
       name: Platform - General/kubeform
+    
 steps:
   - checkout: self
     displayName: Checkout sedp-tf-az-fnapp
@@ -33,61 +45,30 @@ steps:
   - script: |
       git config --global user.email "sedp-ci@shell.com"
       git config --global user.name "Azure Pipeline"
-      git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-tagging".insteadOf https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging
+      git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-fnapp".insteadOf https://dev.azure.com/sede-ds-adp/sedp-tf-az-fnapp
     displayName: Set git properties
   - script: make gen
-    displayName: Run sedp-tf-az-fnapp codegen
-    workingDirectory: sedp-tf-az-fnapp
+    displayName: Run kubeform codegen
+    workingDirectory: kubeform
   - script: go mod tidy && go mod vendor
-    displayName: Update vendored packages in sedp-tf-az-fnapp
-    workingDirectory: sedp-tf-az-fnapp
+    displayName: Update vendored packages in kubeform
+    workingDirectory: kubeform
   - script: make build
-    displayName: Build sedp-tf-az-fnapp binaries
-    workingDirectory: sedp-tf-az-fnapp
+    displayName: Build kubeform binaries
+    workingDirectory: kubeform 
   - script: |
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
     displayName: Commit & push results to sedp-tf-az-fnapp
+    workingDirectory: kubeform
+  - script: git rev-parse HEAD > ../kubeform-sha
+    displayName: Store kubeform revision for kfc to use
     workingDirectory: sedp-tf-az-fnapp
-  - script: go mod tidy && go mod vendor
-    displayName: Update vendored version of sedp-tf-az-fnapp in kubeform
-    workingDirectory: kubeform
   - script: |
-      git add -A
-      git commit -m "[skip-ci] Update Terraform modules"
-      git push -f origin HEAD:${BUILD_SOURCEBRANCH}
-    displayName: Commit & push changes to kubeform
-    workingDirectory: kubeform
-  - script: make build
-    displayName: Build kubeform binaries
-    workingDirectory: kubeform
-  - script: make container
-    displayName: Build kubeform containers
-    workingDirectory: kubeform
-  - script: make push
-    displayName: Push kubeform containers
-    workingDirectory: kubeform
-  # archive working dir for debugging purposes
-  - bash: mkdir -p $(Pipeline.Workspace)/logs
-    condition: always()
-  - task: ArchiveFiles@2
-    condition: always()
-    displayName: "Zip workspace"
-    inputs:
-      rootFolderOrFile: "$(Pipeline.Workspace)/"
-      includeRootFolder: false
-      archiveType: "zip"
-      archiveFile: "$(Pipeline.Workspace)/logs/$(Build.BuildId)-workspace.zip"
-  - task: PublishPipelineArtifact@1
-    condition: always()
-    displayName: "Publish logs"
-    inputs:
-      artifact: "logs"
-      targetPath: $(Pipeline.Workspace)/logs
-  
-  - script: |
-      mv .provider/versions.tf  .
+      ls -la
+      cd sedp-tf-az-fnapp
+      cp .provider/versions.tf .  
 
   - task: a4789e5d-f6e8-431f-add9-379d640a883c@0
     inputs:
@@ -101,3 +82,21 @@ steps:
   - script: |
       terraform validate
     displayName: Terraform Validate
+  - task: KubectlInstaller@0
+    inputs:
+      kubectlVersion: "1.18.3"
+  - task: GoTool@0
+    inputs:
+      version: "1.14.6"
+  - script: |
+      git config --global user.email "sedp-ci@shell.com"
+      git config --global user.name "Azure Pipeline"
+      git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-tagging".insteadOf https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging
+  - script: |
+      ls -la
+      cd sedp-tf-az-fnapp
+      git status
+      git add -A
+      git commit -m "[skip-ci] Update Terraform modules"
+      git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}    
+     
