@@ -1,5 +1,5 @@
 trigger:
-  - main
+  - test1
 
 pool:
   vmImage: "ubuntu-latest"
@@ -76,7 +76,6 @@ steps:
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
-      ls -la
     displayName: Commit & push results to kubeform
     workingDirectory: kubeform
   - script: git rev-parse HEAD > ../kubeform-sha
