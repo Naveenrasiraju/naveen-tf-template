@@ -1,6 +1,6 @@
 trigger:
-  - test2
-  
+  - main
+
 pool:
   vmImage: "ubuntu-latest"
 
@@ -20,19 +20,12 @@ variables:
 
 resources:
   repositories:
-    - repository: kubeform
-      type: git
-      name: Platform - General/kubeform
-
     - repository: kfc
       type: git
       name: Platform - General/kfc
 
 steps:
   - checkout: self
-  
-    displayName: Checkout kubeform
-    persistCredentials: true
   - script: |
       git config --global user.email "sedp-ci@shell.com"
       git config --global user.name "Azure Pipeline"
@@ -51,7 +44,10 @@ steps:
 
   - script: |
       terraform validate
-
+    displayName: Terraform Validate
+    
+    displayName: Checkout kubeform
+    persistCredentials: true
   - checkout: kfc
     displayName: Checkout kfc
     persistCredentials: true
