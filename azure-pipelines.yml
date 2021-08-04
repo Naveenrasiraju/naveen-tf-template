@@ -1,5 +1,5 @@
 trigger:
-  - test2
+  - test1
   
 pool:
   vmImage: "ubuntu-latest"
@@ -20,6 +20,6 @@ variables:
 
 resources:
   repositories:
-    - repository: kfc
+    - repository: kubeform
       type: git
-      name: Platform - General/kfc
+      name: Platform - General/kubeform
