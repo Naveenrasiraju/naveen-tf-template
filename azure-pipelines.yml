@@ -30,6 +30,9 @@ resources:
 
 steps:
   - checkout: self
+  
+    displayName: Checkout kubeform
+    persistCredentials: true
   - script: |
       git config --global user.email "sedp-ci@shell.com"
       git config --global user.name "Azure Pipeline"
@@ -48,9 +51,7 @@ steps:
 
   - script: |
       terraform validate
- - checkout: self
-    displayName: Checkout kubeform
-    persistCredentials: true
+
   - checkout: kfc
     displayName: Checkout kfc
     persistCredentials: true
