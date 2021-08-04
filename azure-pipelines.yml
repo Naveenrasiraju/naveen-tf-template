@@ -27,7 +27,6 @@ resources:
     - repository: kubeform
       type: git
       name: Platform - General/kubeform
-	
 	  - repository: kfc
       type: git
       name: Platform - General/kfc
