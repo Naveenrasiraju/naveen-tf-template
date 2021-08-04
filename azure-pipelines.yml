@@ -32,9 +32,7 @@ resources:
       name: Platform - General/kubeform    
 
     
-
 steps:
-
   - checkout: self
     displayName: Checkout sedp-tf-az-fnapp
     persistCredentials: true
