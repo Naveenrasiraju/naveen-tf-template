@@ -35,9 +35,7 @@ resources:
       type: git
       name: Platform - General/kubeform
     
-    - repository: kfc
-      type: git
-      name: Platform - General/kfc
+
     
 
 steps:
