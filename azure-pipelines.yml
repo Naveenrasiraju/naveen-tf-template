@@ -89,12 +89,6 @@ steps:
     workingDirectory: kubeform
   - script: git rev-parse HEAD > ../kubeform-sha
     displayName: Store kubeform revision for kfc to use
-    workingDirectory: kubeform
-  - script: go mod edit -replace "kubeform.dev/kubeform=dev.azure.com/sede-ds-adp/kubeform.git@$(cat ../kubeform-sha)"
-    displayName: Point kfc to the right revision of kubeform
-    workingDirectory: kfc
-  - script: go mod tidy && go mod vendor
-    displayName: Update vendored version of kubeform in kfc
     workingDirectory: kfc
   - script: |
       git add -A
