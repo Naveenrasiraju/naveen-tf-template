@@ -21,14 +21,14 @@ variables:
 resources:
   repositories:
     
-	- repository: sedp-tf-az-fnapp
+  	- repository: sedp-tf-az-fnapp
       type: git
       name: Platform - General/sedp-tf-az-fnapp
     - repository: kubeform
       type: git
       name: Platform - General/kubeform
 	
-	- repository: kfc
+	  - repository: kfc
       type: git
       name: Platform - General/kfc
     
