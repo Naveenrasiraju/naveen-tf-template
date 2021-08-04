@@ -20,6 +20,12 @@ variables:
 
 resources:
   repositories:
-   	- repository: sedp-tf-az-fnapp
+    - repository: kfc
       type: git
-      name: Platform - General/sedp-tf-az-fnapp
+      name: Platform - General/kfc
+    - repository: kfc
+      type: git
+      name: Platform - General/kfc
+    - repository: kfc
+      type: git
+      name: Platform - General/kfc
