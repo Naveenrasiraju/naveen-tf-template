@@ -85,11 +85,11 @@ steps:
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
-    displayName: Commit & push results to kubeform
+    displayName: Commit & push results to sedp-tf-az-fnapp
     workingDirectory: kubeform
   - script: git rev-parse HEAD > ../kubeform-sha
     displayName: Store kubeform revision for kfc to use
-    workingDirectory: kubeform
+    workingDirectory: sedp-tf-az-fnapp
   - script: go mod edit -replace "kubeform.dev/kubeform=dev.azure.com/sede-ds-adp/kubeform.git@$(cat ../kubeform-sha)"
     displayName: Point kfc to the right revision of kubeform
     workingDirectory: kfc
