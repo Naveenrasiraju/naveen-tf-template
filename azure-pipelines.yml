@@ -23,9 +23,3 @@ resources:
     - repository: kfc
       type: git
       name: Platform - General/kfc
-    - repository: kfc
-      type: git
-      name: Platform - General/kfc
-    - repository: kfc
-      type: git
-      name: Platform - General/kfc
