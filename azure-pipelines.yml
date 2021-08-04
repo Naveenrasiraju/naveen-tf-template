@@ -45,7 +45,8 @@ steps:
   - script: |
       terraform validate
     displayName: Terraform Validate
-    
+
+  - checkout: kubeform 
     displayName: Checkout kubeform
     persistCredentials: true
   - checkout: kfc
