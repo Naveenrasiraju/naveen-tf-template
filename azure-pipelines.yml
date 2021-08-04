@@ -1,5 +1,5 @@
 trigger:
-  - navexm
+  - test1
   
 pool:
   vmImage: "ubuntu-latest"
