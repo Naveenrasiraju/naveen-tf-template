@@ -80,8 +80,6 @@ steps:
       ls -la
     displayName: Commit & push results to kubeform
     workingDirectory: kubeform
-  - script: git rev-parse HEAD > ../kubeform-sha
-    displayName: Store kubeform revision for kfc to use
   - script: make build
     displayName: Build kubeform binaries
     workingDirectory: kubeform
