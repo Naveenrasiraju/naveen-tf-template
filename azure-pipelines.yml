@@ -66,7 +66,7 @@ steps:
     displayName: Set git properties
   - script: |
       ls
-      sed -i s/0.7.2/0.7.3/g module-sources.json
+      sed -i s/0.7.1/0.7.3/g module-sources.json
       cat module-sources.json
       git status
       git add -A
