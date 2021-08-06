@@ -58,9 +58,6 @@ steps:
       ls -la
     displayName: Commit & push results to kubeform
     workingDirectory: kubeform
-  - script: git rev-parse HEAD > ../kubeform-sha
-    displayName: Store kubeform revision for kfc to use
-    workingDirectory: kubeform
   # archive working dir for debugging purposes
   - bash: mkdir -p $(Pipeline.Workspace)/logs
     condition: always()
