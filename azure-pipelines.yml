@@ -1,11 +1,20 @@
 trigger:
-  - main
+  - test1
 
 pool:
   vmImage: "ubuntu-latest"
 
 variables:
   - group: gogit
+  - group: stratos_acr
+  - name: REGISTRY
+    value: stratosprd.azurecr.io/kubeform
+
+resources:
+  repositories:
+    - repository: kubeform
+      type: git
+      name: Platform - General/kubeform
 
 steps:
   - checkout: self
@@ -14,7 +23,8 @@ steps:
       git config --global user.name "Azure Pipeline"
       git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/sedp-tf-az-tagging".insteadOf https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/sedp-tf-az-tagging
   - script: |
-      mv .provider/versions.tf  .
+      cd sedp-tf-az-fnapp
+      cp .provider/versions.tf  .
 
   - task: a4789e5d-f6e8-431f-add9-379d640a883c@0
     inputs:
@@ -28,3 +38,39 @@ steps:
   - script: |
       terraform validate
     displayName: Terraform Validate
+
+  - checkout: kubeform 
+    displayName: Checkout kubeform
+    persistCredentials: true
+  - script: |
+      git config --global user.email "sedp-ci@shell.com"
+      git config --global user.name "Azure Pipeline"
+      git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/kubeform".insteadOf https://dev.azure.com/sede-ds-adp/kubeform
+    displayName: Set git properties
+  - script: |
+      ls
+      sed -i s/0.7.1/0.7.3/g module-sources.json
+      cat module-sources.json
+      git status
+      git add -A
+      git commit -m "[skip-ci] Update Terraform modules"
+      git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
+    displayName: Commit & push results to kubeform
+    workingDirectory: kubeform
+  # archive working dir for debugging purposes
+  - bash: mkdir -p $(Pipeline.Workspace)/logs
+    condition: always()
+  - task: ArchiveFiles@2
+    condition: always()
+    displayName: "Zip workspace"
+    inputs:
+      rootFolderOrFile: "$(Pipeline.Workspace)/"
+      includeRootFolder: false
+      archiveType: "zip"
+      archiveFile: "$(Pipeline.Workspace)/logs/$(Build.BuildId)-workspace.zip"
+  - task: PublishPipelineArtifact@1
+    condition: always()
+    displayName: "Publish logs"
+    inputs:
+      artifact: "logs"
+      targetPath: $(Pipeline.Workspace)/logs
