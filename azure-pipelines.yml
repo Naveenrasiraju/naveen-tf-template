@@ -5,14 +5,6 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  - name: GO111MODULE
-    value: on
-  - name: CGO_ENABLED
-    value: "0"
-  - name: GOROOT
-    value: "/opt/hostedtoolcache/go/1.14.6/x64"
-  - name: GOPRIVATE
-    value: "dev.azure.com/sede-ds-adp"
   - group: gogit
   - group: stratos_acr
   - name: REGISTRY
@@ -23,9 +15,6 @@ resources:
     - repository: kubeform
       type: git
       name: Platform - General/kubeform
-    - repository: sedp-tf-az-fnapp
-      type: git
-      name: Platform - General/sedp-tf-az-fnapp
 
 steps:
   - checkout: self
@@ -53,12 +42,6 @@ steps:
   - checkout: kubeform 
     displayName: Checkout kubeform
     persistCredentials: true
-  - task: KubectlInstaller@0
-    inputs:
-      kubectlVersion: "1.18.3"
-  - task: GoTool@0
-    inputs:
-      version: "1.14.6"
   - script: |
       git config --global user.email "sedp-ci@shell.com"
       git config --global user.name "Azure Pipeline"
