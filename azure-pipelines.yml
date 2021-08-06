@@ -67,6 +67,7 @@ steps:
   - script: |
       ls
       sed -i s/0.7.2/0.7.3/g module-sources.json
+      cat module-sources.json
       git status
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
