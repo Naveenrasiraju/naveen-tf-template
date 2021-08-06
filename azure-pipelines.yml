@@ -23,9 +23,9 @@ resources:
     - repository: kubeform
       type: git
       name: Platform - General/kubeform
-    - repository: kfc
+    - repository: sedp-tf-az-fnapp
       type: git
-      name: Platform - General/kfc
+      name: Platform - General/sedp-tf-az-fnapp
 
 steps:
   - checkout: self
@@ -72,46 +72,18 @@ steps:
       git config --global user.name "Azure Pipeline"
       git config --global url."https://test:${GIT_READ_TOKEN}@dev.azure.com/sede-ds-adp/Platform%20-%20General/_git/kubeform".insteadOf https://dev.azure.com/sede-ds-adp/kubeform
     displayName: Set git properties
-  - script: make gen
-    displayName: Run kubeform codegen
-    workingDirectory: kubeform
-  - script: go mod tidy && go mod vendor
-    displayName: Update vendored packages in kubeform
-    workingDirectory: kubeform
-  - script: make build
-    displayName: Build kubeform binaries
-    workingDirectory: kubeform
   - script: |
+      ls
+      sed -i s/0.7.2/0.7.3/g module-sources.json
+      git status
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
-      ls -la
     displayName: Commit & push results to kubeform
     workingDirectory: kubeform
   - script: git rev-parse HEAD > ../kubeform-sha
     displayName: Store kubeform revision for kfc to use
     workingDirectory: kubeform
-  - script: go mod edit -replace "kubeform.dev/kubeform=dev.azure.com/sede-ds-adp/kubeform.git@$(cat ../kubeform-sha)"
-    displayName: Point kfc to the right revision of kubeform
-    workingDirectory: kfc
-  - script: go mod tidy && go mod vendor
-    displayName: Update vendored version of kubeform in kfc
-    workingDirectory: kfc
-  - script: |
-      git add -A
-      git commit -m "[skip-ci] Update Terraform modules"
-      git push -f origin HEAD:${BUILD_SOURCEBRANCH}
-    displayName: Commit & push changes to kfc
-    workingDirectory: kfc
-  - script: make build
-    displayName: Build kfc binaries
-    workingDirectory: kfc
-  - script: make container
-    displayName: Build kfc containers
-    workingDirectory: kfc
-  - script: make push
-    displayName: Push kfc containers
-    workingDirectory: kfc
   # archive working dir for debugging purposes
   - bash: mkdir -p $(Pipeline.Workspace)/logs
     condition: always()
