@@ -55,6 +55,7 @@ steps:
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
       git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
+      ls -la
     displayName: Commit & push results to kubeform
     workingDirectory: kubeform
   # archive working dir for debugging purposes
