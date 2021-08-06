@@ -49,12 +49,15 @@ steps:
     displayName: Set git properties
   - script: |
       ls
+      git checkout -b ${BUILD_SOURCEBRANCH}
+      git status
       sed -i s/0.7.1/0.7.3/g module-sources.json
       cat module-sources.json
       git status
       git add -A
       git commit -m "[skip-ci] Update Terraform modules"
-      git push origin HEAD:${BUILD_SOURCEBRANCH/#refs\/heads\/}
+      git remote add origin2 https://sede-ds-adp.visualstudio.com/Platform%20-%20General/_git/kubeform
+      git push origin2 ${BUILD_SOURCEBRANCH}
     displayName: Commit & push results to kubeform
     workingDirectory: kubeform
   # archive working dir for debugging purposes
